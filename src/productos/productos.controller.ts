@@ -2,10 +2,15 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CategoriasDto } from './dto/categorias.dto';
 import { Recienllegadosproductos } from './dto/productos.dto';
+import { ProductosService } from './productos.service';
+import { Producto } from './producto.class';
 
 @ApiTags("Productos")
 @Controller('productos')
 export class ProductosController {
+
+    constructor(private productosService: ProductosService) {}
+
     @Get()
     name(): string {
         return "<h1>Productos</h1>"
@@ -13,11 +18,11 @@ export class ProductosController {
 
     @Get("/categorias")
     @ApiResponse({
-        status:200,
-        description:"Categorias de productos",
-        type:CategoriasDto
+        status: 200,
+        description: "Categorias de productos",
+        type: CategoriasDto,
+        isArray: true
     })
-    
     categorias():CategoriasDto[] {
         let categorias:CategoriasDto[]=[
             new CategoriasDto("ropa hombre"),
@@ -26,13 +31,14 @@ export class ProductosController {
         ];
         return categorias;
     }
+
     @Get("/recien-llegados")
     @ApiResponse({
-        status:200,
-        description:"Productos recien llegados",
-        type:Recienllegadosproductos
+        status: 200,
+        description: "Productos recien llegados",
+        type: Recienllegadosproductos,
+        isArray: true
     })
-    
     recienllegados():Recienllegadosproductos[] {
         let productosrecienllegados:Recienllegadosproductos[]=[
             new Recienllegadosproductos("vestido",10000,"es un vestido","url"),
@@ -40,5 +46,16 @@ export class ProductosController {
             new Recienllegadosproductos("polera",5000,"es una polera","url")
         ];
         return productosrecienllegados;
+    }
+
+    @Get("/ofertas")
+    @ApiResponse({
+        status: 200,
+        description: "Listado de productos con ofertas",
+        type: Producto,
+        isArray: true
+    })
+    productosOfertas(): Producto[] {
+        return this.productosService.findProductosOfertas();
     }
 }
