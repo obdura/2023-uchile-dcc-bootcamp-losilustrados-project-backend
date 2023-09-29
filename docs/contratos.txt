@@ -1,0 +1,103 @@
+producto_details
+{
+	"uuid": uuid
+	"name": "string",
+    "description": "string",
+	"size": "string",
+	"price": number,
+    "isOffer": boolean,
+    "newArrival": boolean,
+    "thumbnailImagePath": "string", 
+	"imagePaths": [
+		"imagePath1", (string)
+		"imagePath2", (string)
+		"imagePath3", (string)
+		...
+		"imagePathN" (string)
+	],
+	"condition": "string",
+	"material": [
+		"material1", (string)
+		"material2", (string)
+		"material3", (string)
+		...
+		"materialN", (string)
+	],
+	"illustrator": {
+		"uuid": uuid
+		"name": "string",
+		"imagePath": "string",
+		""
+	},
+    "brand": "string"
+}
+
+producto_list (catalogo de productos, listado de productos por filtro, etc)
+
+products_list = [
+    {
+        "uuid": uuid
+        "name": "string",
+        "description": "string",
+        "size": "string",
+        "price": number,
+        "isOffer": boolean,
+        "newArrival": boolean,
+        "thumbnailImagePath": "string", 
+        "imagePaths": [
+            "imagePath1", (string)
+            "imagePath2", (string)
+            "imagePath3", (string)
+            ...
+            "imagePathN" (string)
+        ],
+        "condition": "string",
+        "material": [
+            "material1", (string)
+            "material2", (string)
+            "material3", (string)
+            ...
+            "materialN", (string)
+        ],
+        "illustrator": {
+            "uuid": uuid
+            "name": "string",
+            "imagePath": "string",
+            ""
+        },
+        "brand": "string"
+    },
+    ...
+        {
+        "uuid": uuid
+        "name": "string",
+        "description": "string",
+        "size": "string",
+        "price": number,
+        "isOffer": boolean,
+        "newArrival": boolean,
+        "thumbnailImagePath": "string", 
+        "imagePaths": [
+            "imagePath1", (string)
+            "imagePath2", (string)
+            "imagePath3", (string)
+            ...
+            "imagePathN" (string)
+        ],
+        "condition": "string",
+        "material": [
+            "material1", (string)
+            "material2", (string)
+            "material3", (string)
+            ...
+            "materialN", (string)
+        ],
+        "illustrator": {
+            "uuid": uuid
+            "name": "string",
+            "imagePath": "string",
+            ""
+        },
+        "brand": "string"
+    }
+]
