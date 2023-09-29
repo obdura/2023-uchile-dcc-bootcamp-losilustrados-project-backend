@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 export class Illustrator {
 
     @ApiProperty({
-        type: 'strng',
+        type: 'string',
         title: 'uuid del artista',
     })
     uuid: string;

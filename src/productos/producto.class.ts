@@ -1,66 +1,113 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Illustrator } from "src/illustrator/illustrator.class";
 
 export class Producto {
 
     @ApiProperty({
-        type: 'number',
-        title: 'Identificador del producto',  
+        type: 'string',
+        title: 'UUID identificador del producto',
     })
-    id: number;
+    uuid: string;
 
     @ApiProperty({
         type: 'string',
-        title: 'Nombre del producto',  
+        title: 'Nombre del producto',
     })
-    nombre: string;
+    name: string;
 
     @ApiProperty({
         type: 'string',
-        title: 'Descripcion del producto',  
+        title: 'Descripcion del producto',
     })
-    descripcion: string;
-
-    @ApiProperty({
-        type: 'number',
-        title: 'Precio del producto',  
-    })
-    precio: number;
+    description: string;
 
     @ApiProperty({
         type: 'string',
-        title: 'url de la imagen del producto',  
+        title: 'Talla del producto',
     })
-    urlImagen: string;
+    size: string;
+
+    @ApiProperty({
+        type: 'string',
+        title: "Precio del producto",
+    })
+    price: number;
 
     @ApiProperty({
         type: 'boolean',
-        title: 'Oferta',  
-        description: 'Indica si es un producto en oferta'
+        title: 'Es oferta',
     })
-    oferta: boolean;
+    isOffer: boolean;
 
     @ApiProperty({
         type: 'boolean',
-        title: 'Producto recien llegado',
-        description: 'Indica si es un producto recien llegado'  
+        title: 'Recien llegado',
     })
-    recienLlegado: boolean;
+    newArrival: boolean;
+
+    @ApiProperty({
+        type: 'string',
+        title: 'url del thumbnail del producto',
+    })
+    thumbnailImagePath: string;
+
+    @ApiProperty({
+        type: 'string[]',
+        title: 'Paths de las imagenes del producto',
+    })
+    imagePaths: string[];
+
+    @ApiProperty({
+        type: 'string',
+        title: 'Condicion del producto',
+    })
+    condition: string;
+
+    @ApiProperty({
+        type: 'string[]',
+        title: 'Materiales del producto',
+    })
+    material: string[];
+
+    @ApiProperty({
+        type: "Illustrator",
+        title: 'Ilustrador del estampado',
+    })
+    illustrator: Illustrator;
+
+    @ApiProperty({
+        type: 'string',
+        title: 'Marca del producto',
+    })
+    brand: string;
 
     constructor(
-        id: number,
-        nombre: string,
-        descripcion: string,
-        precio: number,
-        urlImagen: string,
-        oferta: boolean,
-        recienLlegado: boolean
+        uuid: string,
+        name: string,
+        description: string,
+        size: string,
+        price: number,
+        isOffer: boolean,
+        newArrival: boolean,
+        thumbnailImagePath: string,
+        imagePaths: string[],
+        condition: string,
+        material: string[],
+        illustrator: Illustrator,
+        brand: string
     ) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.urlImagen = urlImagen;
-        this.oferta = oferta;
-        this.recienLlegado = recienLlegado;
+        this.uuid = uuid;
+        this.name = name;
+        this.description = description;
+        this.size = size;
+        this.price = price;
+        this.isOffer = isOffer;
+        this.newArrival = newArrival;
+        this.thumbnailImagePath = thumbnailImagePath;
+        this.imagePaths = imagePaths;
+        this.condition = condition;
+        this.material = material;
+        this.illustrator = illustrator;
+        this.brand = brand;
     }
 }

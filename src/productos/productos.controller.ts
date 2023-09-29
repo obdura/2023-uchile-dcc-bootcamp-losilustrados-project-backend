@@ -1,7 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CategoriasDto } from './dto/categorias.dto';
-import { Recienllegadosproductos } from './dto/productos.dto';
 import { ProductosService } from './productos.service';
 import { Producto } from './producto.class';
 
@@ -16,6 +15,16 @@ export class ProductosController {
         return "<h1>Productos</h1>"
     }
 
+    @Get("/producto/:uuid")
+    @ApiResponse({
+        status: 200,
+        description: "Encuentra producto por uuid",
+        type: Producto,
+    })
+    productoDetail(@Param('uuid') uuid: string): Producto {
+        return this.productosService.findProductoByUUID(uuid);
+    }
+
     @Get("/categorias")
     @ApiResponse({
         status: 200,
@@ -23,7 +32,7 @@ export class ProductosController {
         type: CategoriasDto,
         isArray: true
     })
-    categorias():CategoriasDto[] {
+    categorias(): CategoriasDto[] {
         let categorias:CategoriasDto[]=[
             new CategoriasDto("ropa hombre"),
             new CategoriasDto("ropa mujer"),
@@ -32,20 +41,28 @@ export class ProductosController {
         return categorias;
     }
 
+    @Get('/all')
+    @ApiResponse({
+        status: 200,
+        description: "Todos los productos",
+        type: Producto,
+        isArray: true,
+    })
+    all(): Producto[] {
+        console.log("Productos invocado");
+
+        return this.productosService.findAll();
+    }
+
     @Get("/recien-llegados")
     @ApiResponse({
         status: 200,
         description: "Productos recien llegados",
-        type: Recienllegadosproductos,
+        type: Producto,
         isArray: true
     })
-    recienllegados():Recienllegadosproductos[] {
-        let productosrecienllegados:Recienllegadosproductos[]=[
-            new Recienllegadosproductos("vestido",10000,"es un vestido","url"),
-            new Recienllegadosproductos("pantalon",15000,"es un pantalon","url"),
-            new Recienllegadosproductos("polera",5000,"es una polera","url")
-        ];
-        return productosrecienllegados;
+    newArrival(): Producto[] {
+        return this.productosService.findProductosRecienLlegados();
     }
 
     @Get("/ofertas")
@@ -55,7 +72,7 @@ export class ProductosController {
         type: Producto,
         isArray: true
     })
-    productosOfertas(): Producto[] {
+    offers(): Producto[] {
         return this.productosService.findProductosOfertas();
     }
 }
