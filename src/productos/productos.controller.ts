@@ -75,4 +75,26 @@ export class ProductosController {
     offers(): Producto[] {
         return this.productosService.findProductosOfertas();
     }
+
+    @Get("/size/:size")
+    @ApiResponse({
+        status: 200,
+        description: "Listado de productos por talla.",
+        type: Producto,
+        isArray: true,
+    })
+    productosBySize(@Param('size') size: string) {
+        return this.productosService.findProductsBySize(size);
+    }
+
+    @Get("/artista/:uuid")
+    @ApiResponse({
+        status: 200,
+        description: "Listado de productos asociados a un artista.",
+        type: Producto,
+        isArray: true,
+    })
+    productosByArtista(@Param('uuid') uuid: string) {
+        return this.productosService.findProductByArtista(uuid);
+    }
 }

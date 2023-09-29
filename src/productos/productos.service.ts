@@ -35,4 +35,20 @@ export class ProductosService {
         }
         return null;
     }
+
+    findProductsBySize(size: string): Producto[] {
+        return this.listaProductos.filter(
+            (producto) => {
+                return producto.size.toUpperCase() == size.toUpperCase();
+            }
+        )
+    }
+
+    findProductByArtista(uuid: string): Producto[] {
+        return this.listaProductos.filter(
+            (producto) => {
+                return producto.illustrator.uuid == uuid;
+            }
+        )
+    }
 }

@@ -28,7 +28,7 @@ const producto2: Producto = new Producto(
     'Esta es una polera',
     'L',
     10000,
-    false,
+    true,
     true,
     '',
     [
@@ -68,7 +68,7 @@ const producto4: Producto = new Producto(
     'Esta es una polera',
     'M',
     8000,
-    false,
+    true,
     true,
     '',
     [
