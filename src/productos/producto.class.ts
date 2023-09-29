@@ -81,6 +81,12 @@ export class Producto {
     })
     brand: string;
 
+    @ApiProperty({
+        type: 'string',
+        title: 'Categoria del producto'
+    })
+    category: string;
+
     constructor(
         uuid: string,
         name: string,
@@ -94,7 +100,8 @@ export class Producto {
         condition: string,
         material: string[],
         illustrator: Illustrator,
-        brand: string
+        brand: string,
+        category: string
     ) {
         this.uuid = uuid;
         this.name = name;
@@ -109,5 +116,6 @@ export class Producto {
         this.material = material;
         this.illustrator = illustrator;
         this.brand = brand;
+        this.category = category;
     }
 }

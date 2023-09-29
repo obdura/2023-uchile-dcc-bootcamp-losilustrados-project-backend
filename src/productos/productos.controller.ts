@@ -29,16 +29,11 @@ export class ProductosController {
     @ApiResponse({
         status: 200,
         description: "Categorias de productos",
-        type: CategoriasDto,
+        type: String,
         isArray: true
     })
-    categorias(): CategoriasDto[] {
-        let categorias:CategoriasDto[]=[
-            new CategoriasDto("ropa hombre"),
-            new CategoriasDto("ropa mujer"),
-            new CategoriasDto("ropa niño")
-        ];
-        return categorias;
+    categorias(): string[] {
+        return this.productosService.findAllCategories();
     }
 
     @Get('/all')
@@ -96,5 +91,16 @@ export class ProductosController {
     })
     productosByArtista(@Param('uuid') uuid: string) {
         return this.productosService.findProductByArtista(uuid);
+    }
+
+    @Get("/categoria/:category")
+    @ApiResponse({
+        status: 200,
+        description: 'Listado de productos por categoria.',
+        type: Producto,
+        isArray: true
+    })
+    productosByCategory(@Param('category') category: string): Producto[] {
+        return this.productosService.findProductsByCategory(category);
     }
 }

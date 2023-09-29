@@ -51,4 +51,20 @@ export class ProductosService {
             }
         )
     }
+
+    findAllCategories(): string[] {
+        let categories: Set<string> = new Set<string>();
+        for (const producto of this.listaProductos) {
+            categories.add(producto.category.toUpperCase());
+        }
+        return Array.from(categories.values());
+    }
+
+    findProductsByCategory(category: string): Producto[] {
+        return this.listaProductos.filter(
+            (producto) => {
+                return producto.category.toUpperCase() == category.toUpperCase();
+            }
+        )
+    }
 }

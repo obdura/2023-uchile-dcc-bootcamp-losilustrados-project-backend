@@ -19,7 +19,8 @@ const producto1: Producto = new Producto(
         'algodon'
     ],
     illustratorMock1,
-    'Marca1'
+    'Marca1',
+    'polera'
 );
 
 const producto2: Producto = new Producto(
@@ -39,7 +40,8 @@ const producto2: Producto = new Producto(
         'algodon'
     ],
     illustratorMock1,
-    'Marca1'
+    'Marca1',
+    'polera'
 );
 
 const producto3: Producto = new Producto(
@@ -59,7 +61,8 @@ const producto3: Producto = new Producto(
         'algodon'
     ],
     illustratorMock1,
-    'Marca1'
+    'Marca1',
+    'polera'
 );
 
 const producto4: Producto = new Producto(
@@ -79,7 +82,8 @@ const producto4: Producto = new Producto(
         'algodon'
     ],
     illustratorMock1,
-    'Marca1'
+    'Marca1',
+    'polera'
 );
 
 
