@@ -86,10 +86,120 @@ const producto4: Producto = new Producto(
     'polera'
 );
 
+const producto5: Producto = new Producto(
+    uuid(),
+    'Chaqueta 1',
+    'Esta es una chaqueta',
+    'XL',
+    18000,
+    false,
+    true,
+    '',
+    [
+        '',
+    ],
+    'nuevo',
+    [
+        'cuero'
+    ],
+    illustratorMock1,
+    'Marca2',
+    'chaqueta'
+);
+
+const producto6: Producto = new Producto(
+    uuid(),
+    'Jeans 1',
+    'Esta es un jeans',
+    'S',
+    30000,
+    true,
+    false,
+    '',
+    [
+        '',
+    ],
+    'nuevo',
+    [
+        'algodon',
+        'elastano'
+    ],
+    illustratorMock1,
+    'Marca2',
+    'jeans'
+);
+
+const producto7: Producto = new Producto(
+    uuid(),
+    'vestido 1',
+    'Esta es un vestido',
+    'L',
+    40000,
+    false,
+    false,
+    '',
+    [
+        '',
+    ],
+    'nuevo',
+    [
+        'poliester'
+    ],
+    illustratorMock1,
+    'Marca3',
+    'vestido'
+);
+
+const producto8: Producto = new Producto(
+    uuid(),
+    'Zapatillas',
+    'Esta es un par de zapatillas',
+    '38',
+    40000,
+    true,
+    true,
+    '',
+    [
+        '',
+    ],
+    'nuevo',
+    [
+        'Cuero'
+    ],
+    illustratorMock1,
+    'Marca4',
+    'zapatillas'
+);
+
+const producto9: Producto = new Producto(
+    uuid(),
+    'Zapatillas',
+    'Esta es un par de zapatillas',
+    '40',
+    45000,
+    false,
+    true,
+    '',
+    [
+        '',
+    ],
+    'nuevo',
+    [
+        'Cuero'
+    ],
+    illustratorMock1,
+    'Marca3',
+    'zapatillas'
+);
 
 export const productosMock: Producto[] = [
     producto1,
     producto2,
     producto3,
     producto4,
+    producto5,
+    producto6,
+    producto7,
+    producto8,
+    producto9,
 ];

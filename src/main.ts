@@ -6,6 +6,7 @@ import { CarritoModule } from './carrito/carrito.module';
 import { ContactoModule } from './contacto/contacto.module';
 import { LoginModule } from './login/login.module';
 import { PasarelaModule } from './pasarela/pasarela.module';
+import { IllustratorModule } from './illustrator/illustrator.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -82,6 +83,19 @@ async function bootstrap() {
     include: [ProductosModule]
   });
   SwaggerModule.setup('api/productos', app, productosDocument);
+
+  // Illustrator Swagger
+  const illustratorConfig = new DocumentBuilder()
+    .setTitle("Ilustradores API")
+    .setDescription("Documentacion de la API Ilustradores")
+    .setVersion('1.0')
+    .addTag('illustrator')
+    .build();
+
+  const ilustradoresDocument = SwaggerModule.createDocument(app, illustratorConfig, {
+    include: [IllustratorModule]
+  });
+  SwaggerModule.setup('api/ilustradores', app, ilustradoresDocument);
   
   await app.listen(3000);
 }

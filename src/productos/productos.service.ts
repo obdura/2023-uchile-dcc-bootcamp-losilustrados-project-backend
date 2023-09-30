@@ -67,4 +67,20 @@ export class ProductosService {
             }
         )
     }
+
+    findAllBrands(): string[] {
+        let brands: Set<string> = new Set<string>();
+        for (const producto of this.listaProductos) {
+            brands.add(producto.brand.toUpperCase());
+        }
+        return Array.from(brands.values());
+    }
+
+    findProductsByBrand(brand: string): Producto[] {
+        return this.listaProductos.filter(
+            (producto) => {
+                return producto.brand.toUpperCase() == brand.toUpperCase();
+            }
+        )
+    }
 }
