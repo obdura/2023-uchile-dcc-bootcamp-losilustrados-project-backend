@@ -103,4 +103,26 @@ export class ProductosController {
     productosByCategory(@Param('category') category: string): Producto[] {
         return this.productosService.findProductsByCategory(category);
     }
+
+    @Get("/brands")
+    @ApiResponse({
+        status: 200,
+        description: "Listado de marcas.",
+        type: String,
+        isArray: true,
+    })
+    brands(): string[] {
+        return this.productosService.findAllBrands();
+    }
+
+    @Get("/brands/:brand")
+    @ApiResponse({
+        status: 200,
+        description: 'Listado de productos por marca.',
+        type: Producto,
+        isArray: true
+    })
+    productosByBrand(@Param('brand') brand: string): Producto[] {
+        return this.productosService.findProductsByBrand(brand);
+    }
 }
