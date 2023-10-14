@@ -1,3 +1,5 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 interface Persona{
     nombre: string;
     direccion: string;
@@ -9,9 +11,29 @@ interface Usuario{
 }
 
 export class Cliente {
+
+    @ApiProperty({
+        type: 'string',
+        title: 'Email del cliente',  
+    })
     readonly email: string;
+    
+    @ApiProperty({
+        type: 'string',
+        title: 'Password del cliente',  
+    })
     readonly password: string;
+    
+    @ApiProperty({
+        type: 'string',
+        title: 'Nombre del cliente',  
+    })
     readonly nombre: string;
+    
+    @ApiProperty({
+        type: 'string',
+        title: 'Direccion del cliente',  
+    })
     readonly direccion: string;
 
     constructor(
