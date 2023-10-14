@@ -87,4 +87,12 @@ export class ProductosService {
             }
         )
     }
+
+    getProductosPorIlustrador(uuid: string): Producto[] {
+        return this.listaProductos.filter(
+            (producto) => {
+                return producto.illustrator.uuid == uuid;
+            }
+        )
+    }
 }
