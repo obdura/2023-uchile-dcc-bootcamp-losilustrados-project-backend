@@ -1,0 +1,55 @@
+Table Productos {
+  id uuid [primary key]
+  recien_llegado bool
+  id_categoria uuid [ref: > Categorias.id]
+  id_marca uuid [ref: > Marcas.id]
+  id_ilustracion uuid [ref: > Ilustraciones.id]
+}
+
+Table Categorias {
+  id uuid [primary key]
+  nombre string
+}
+
+Table Ofertas {
+  id uuid [primary key]
+  id_producto uuid [ref: - Productos.id]
+  porcentaje_descuento number
+}
+
+Table Inventario {
+  id uuid [primary key]
+  id_producto uuid [ref: > Productos.id]
+  talla string
+  cantidad number
+}
+
+Table Artistas {
+  id uuid [primary key]
+  url_imagen string
+  id_usuario uuid [ref: - Usuario.id]
+}
+
+Table Ilustraciones {
+  id uuid [primary key]
+  id_artista uuid [ref: > Artistas.id]
+}
+
+Table Marcas {
+  id uuid [primary key]
+  nombre string
+}
+
+Table Usuario {
+  id uuid [primary key]
+  nombre string
+  direccion string
+}
+
+Table Cliente {
+  id uuid [primary key]
+  email string
+  password string
+  id_usuario uuid [ref: - Usuario.id]
+}
+

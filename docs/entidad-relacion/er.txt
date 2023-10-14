@@ -1,0 +1,36 @@
+erDiagram
+    Cliente ||--o{ Pedido: realiza
+    Cliente ||--|{ Direccion: posee
+    Cliente ||--o{ Favorito: "puede tener"
+    Cliente |o--|| Usuario: "asociado a"
+    Cliente ||--o{ Boleta: "puede tener"
+    Cliente ||--o{ Telefono: "puede tener"
+    Cliente ||--o{ Carrito: tiene
+    Cliente ||--o{ Comprobante: "puede tener"
+    Cliente ||--o{ Transaccion: "puede tener"
+    Cliente }|--o{ Cupon: "puede tener"
+    Staff ||--|| Usuario: tiene
+    Staff ||--o| Direccion: "puede tener"
+    Staff ||--o{ Telefono: "puede tener"
+    Pedido ||--|{ DetallePedido: tiene
+    Pedido ||--o| Boleta: "puede tener"
+    Pedido ||--o| Comprobante: "puede tener"
+    Pedido }o--o| Direccion: "puede tener"
+    Pedido }o--o{ Telefono: "puede tener"
+    Pedido }o--o| MedioPago: "está asociado"
+    Pedido }o--|{ Despacho: "puede tener"
+    Pedido ||--|{ DetallePedido: tiene
+    Pedido ||--o| OrdenTrabajo: tiene
+    Pedido ||--o| Transaccion: tiene
+
+    Artista ||--|{ Ilustracion: posee
+    Artista ||--|| Usuario: es
+    Inventario ||--|{ Producto: tiene
+    Categoria ||--o{ Producto: tiene
+    Producto ||--o| Ilustracion: "puede tener"
+    Producto ||--|{ Proveedor: tiene
+    Producto ||--o| Ofertas: "puede tener"
+    Producto ||--o| Marca: "puede tener"
+    Producto }|--o{ Material: "puede tener"
+    Producto ||--|{ DetallePedido: "puede estar en"
+    Proveedor ||--|{ Marca: tiene
