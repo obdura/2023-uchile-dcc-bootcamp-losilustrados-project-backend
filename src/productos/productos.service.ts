@@ -5,6 +5,10 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class ProductosService {
 
+    constructor() {
+        console.log("ProductosService created.");
+    }
+
     private listaProductos: Producto[] = productosMock;
 
     findAll(): Producto[] {

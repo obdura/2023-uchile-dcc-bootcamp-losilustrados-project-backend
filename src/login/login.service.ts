@@ -5,6 +5,10 @@ import { LoginClienteDto } from './loginCliente.dto';
 @Injectable()
 export class LoginService {
 
+    constructor() {
+        console.log("LoginService created.");
+    }
+
     private listaClientes: Cliente[] = [];
 
     insertCliente(cliente: Cliente) {
@@ -29,5 +33,18 @@ export class LoginService {
         return {
             mensaje: "NOK"
         };
+    }
+
+    obtenerClientePorEmail(email: string): Cliente {
+        for(let i = 0; i < this.listaClientes.length; i++) {
+            if (email === this.listaClientes[i].email) {
+                return this.listaClientes[i];
+            }
+        }
+        return null;
+    }
+
+    getListaClientes(): Cliente[] {
+        return this.listaClientes;
     }
 }

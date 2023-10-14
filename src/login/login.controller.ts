@@ -28,5 +28,8 @@ export class LoginController {
         return this.loginService.autenticarCliente(loginClienteDto);
     }
 
-
+    @Get('clientes')
+    listaClientes(): Cliente[] {
+        return this.loginService.getListaClientes();
+    }
 }

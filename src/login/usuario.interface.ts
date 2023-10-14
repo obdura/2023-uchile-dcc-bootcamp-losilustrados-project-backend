@@ -8,11 +8,11 @@ interface Usuario{
     password: string;
 }
 
-export class Cliente implements Persona, Usuario {
-    email: string;
-    password: string;
-    nombre: string;
-    direccion: string;
+export class Cliente {
+    readonly email: string;
+    readonly password: string;
+    readonly nombre: string;
+    readonly direccion: string;
 
     constructor(
         email: string,
@@ -20,6 +20,7 @@ export class Cliente implements Persona, Usuario {
         nombre: string,
         direccion: string 
     ) {
+        console.log(email);
         this.email = email;
         this.password = password;
         this.nombre = nombre;
