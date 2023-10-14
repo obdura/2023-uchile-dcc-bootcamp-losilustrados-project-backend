@@ -5,6 +5,10 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class ProductosService {
 
+    constructor() {
+        console.log("ProductosService created.");
+    }
+
     private listaProductos: Producto[] = productosMock;
 
     findAll(): Producto[] {
@@ -80,6 +84,14 @@ export class ProductosService {
         return this.listaProductos.filter(
             (producto) => {
                 return producto.brand.toUpperCase() == brand.toUpperCase();
+            }
+        )
+    }
+
+    getProductosPorIlustrador(uuid: string): Producto[] {
+        return this.listaProductos.filter(
+            (producto) => {
+                return producto.illustrator.uuid == uuid;
             }
         )
     }
