@@ -1,0 +1,186 @@
+Table Productos {
+  id uuid [primary key]
+  precio number
+  recien_llegado bool
+  id_categoria uuid
+  id_marca uuid
+  id_ilustracion uuid
+  id_proveedor uuid
+}
+
+Table Categorias {
+  id uuid [primary key]
+  nombre string
+}
+
+Table Ofertas {
+  id uuid [primary key]
+  id_producto uuid
+  porcentaje_descuento number
+}
+
+Table Inventario {
+  id uuid [primary key]
+  id_producto uuid
+  talla string
+  cantidad number
+}
+
+Table Artistas {
+  id uuid [primary key]
+  url_imagen_perfil string
+  //id_usuario uuid [ref: - Usuario.id]
+}
+
+Table Ilustraciones {
+  id uuid [primary key]
+  id_artista uuid
+  fecha_creacion datetime
+}
+
+Table Marcas {
+  id uuid [primary key]
+  nombre string
+  id_proveedor uuid
+}
+
+//Table Usuario {
+//  id uuid [primary key]
+//  nombre string
+//  direccion string
+//}
+
+Table Clientes {
+  id uuid [primary key]
+  email string
+  password string
+  //id_usuario uuid [ref: - Usuario.id]
+}
+
+Table Pedidos {
+  id uuid [primary key]
+  id_cliente uuid
+  id_direccion uuid
+  id_reparto_comuna uuid
+  fecha_creacion datetime
+  medio_pago string
+}
+
+Table DetallePedidos {
+  id uuid [primary key]
+  id_pedido uuid
+  id_producto uuid
+  cantidad number
+}
+
+Table Boletas {
+  id uuid [primary key]
+  id_pedido uuid
+  id_cliente uuid
+  fecha_creacion datetime
+}
+
+Table Comprobantes {
+  id uuid [primary key]
+  id_pedido uuid
+  id_cliente uuid
+}
+
+Table Direcciones {
+  id uuid [primary key]
+  calle string
+  numero string
+  numero_departamento string
+  comuna string
+  ciudad string
+  provincia string
+  region string
+  codigo_postal number
+}
+
+Table DireccionesPorCliente {
+  id uuid [primary key]
+  id_cliente uuid
+  id_direccion uuid
+}
+
+Table Favoritos {
+  id uuid [primary key]
+  id_producto uuid
+  id_cliente uuid
+  fecha_creacion datetime
+}
+
+Table Telefonos {
+  id uuid [primary key]
+  id_cliente uuid
+  numero_telefono number
+  es_celular boolean
+}
+
+Table Transacciones {
+  id uuid [primary key]
+  id_cliente uuid
+  id_pedido uuid
+  fecha_transaccion datetime
+  fecha_creacion datetime
+}
+
+Table Cupones {
+  id uuid [primary key]
+  descuento integer
+  fecha_desde_vigencia datetime
+  fecha_hasta_vigencia datetime
+  id_cliente uuid
+}
+
+Table RepartoComuna {
+  id uuid [primary key]
+  fecha_creacion datetime
+  comuna string
+}
+
+Table OrdenTrabajo {
+  id uuid [primary key]
+  fecha_creacion datetime
+  id_pedido uuid
+}
+
+Table Proveedores {
+  id uuid [primary key]
+  nombre string
+}
+
+Ref: Pedidos.id_cliente > Clientes.id 
+Ref: DetallePedidos.id_pedido > Pedidos.id
+Ref: Boletas.id_pedido - Pedidos.id
+Ref: Comprobantes.id_pedido - Pedidos.id
+Ref: DireccionesPorCliente.id_cliente > Clientes.id
+Ref: DireccionesPorCliente.id_direccion > Direcciones.id
+Ref: Favoritos.id_producto > Productos.id
+Ref: Favoritos.id_cliente > Clientes.id
+Ref: Boletas.id_cliente > Clientes.id
+Ref: Telefonos.id_cliente - Clientes.id
+Ref: Comprobantes.id_cliente > Clientes.id
+Ref: Transacciones.id_cliente > Clientes.id
+Ref: Cupones.id_cliente > Clientes.id
+Ref: Pedidos.id_direccion > Direcciones.id
+Ref: Pedidos.id_reparto_comuna > RepartoComuna.id
+Ref: Pedidos.id - OrdenTrabajo.id_pedido
+Ref: Pedidos.id - Transacciones.id_pedido
+Ref: Artistas.id < Ilustraciones.id_artista
+Ref: Inventario.id_producto > Productos.id
+Ref: Productos.id_categoria > Categorias.id
+Ref: Productos.id_ilustracion - Ilustraciones.id
+Ref: Proveedores.id < Productos.id_proveedor
+Ref: Productos.id < DetallePedidos.id_producto
+Ref: Marcas.id < Productos.id_marca
+Ref: Productos.id < Ofertas.id_producto
+Ref: Proveedores.id < Marcas.id_proveedor
+
+
+//Ref: posts.user_id > users.id // many-to-one
+
+//Ref: users.id < follows.following_user_id
+
+//Ref: users.id < follows.followed_user_id
