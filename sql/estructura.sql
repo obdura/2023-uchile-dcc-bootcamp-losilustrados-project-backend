@@ -112,7 +112,7 @@ CREATE TABLE `Favoritos` (
 CREATE TABLE `Telefonos` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_cliente` integer,
-  `numero_telefono` integer,
+  `numero_telefono` varchar(20),
   `es_celular` boolean
 );
 
