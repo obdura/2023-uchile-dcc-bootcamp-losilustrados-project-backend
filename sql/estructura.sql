@@ -9,7 +9,8 @@ CREATE TABLE `Productos` (
   `id_categoria` integer,
   `id_marca` integer,
   `id_ilustracion` integer,
-  `id_proveedor` integer
+  `id_proveedor` integer,
+  `descripcion` varchar(1000)
 );
 
 CREATE TABLE `Categorias` (
