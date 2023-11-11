@@ -1,7 +1,8 @@
-import { BadRequestException, Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
-import { ApiOkResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { BadRequestException, Body, Controller, DefaultValuePipe, Get, NotFoundException, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { ApiBody, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { CreateProductoDto } from 'src/dtos/create-producto.dto';
 import { ProductoDto } from 'src/dtos/producto.dto';
+import { UpdateProductoDto } from 'src/dtos/update-producto.dto';
 import { ProductosService } from 'src/services/productos.service';
 
 @Controller("productos")
@@ -67,6 +68,34 @@ export class ProductosController {
             return resultado;
         } catch (error) {
             throw new BadRequestException(error.message);
+        }
+    }
+
+
+    @Get("/:id")
+    @ApiParam({ name: "id", required: true, description: "Id del producto a buscar" })
+    @ApiOkResponse({ description: "Producto encontrado", type: ProductoDto })
+    @ApiNotFoundResponse({ description: "No se encontró el producto" })
+    async findProducto(@Param("id") id: number) {
+        try {
+            const resultado = await this.productoService.findProducto(id);
+            return resultado;
+        } catch (error) {
+            throw new NotFoundException(error.message);
+        }
+    }
+
+    @Patch("/update/:id")
+    @ApiBody({ type: UpdateProductoDto, description: "Datos del producto a actualizar"})
+    @ApiParam({ name: "id", required: true, description: "Id del producto a actualizar" })
+    @ApiOkResponse({ description: "Producto actualizado", type: ProductoDto})
+    @ApiNotFoundResponse({ description: "No se encontró el producto" })
+    async updateProducto(@Param("id") id: number, @Body() updateProductoDto: UpdateProductoDto) {
+        try{
+            const resultado = await this.productoService.updateProducto(id, updateProductoDto);
+            return resultado;
+        } catch (error) {
+            throw new NotFoundException(error.message);
         }
     }
 }
