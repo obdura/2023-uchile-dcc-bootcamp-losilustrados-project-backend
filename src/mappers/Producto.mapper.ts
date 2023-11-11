@@ -29,4 +29,8 @@ export class ProductoMapper {
         dto.precio = entidad.precio;
         return dto;
     }
+
+    static productoEntitiesToProductoDtoList(entidades: Producto[]): ProductoDto[] {
+        return entidades.map((entidad) => this.productoEntityToDto(entidad));
+    }
 }

@@ -13,7 +13,7 @@ export class ProductosService {
         @InjectRepository(Producto) private productoRepository: Repository<Producto>
     ) {}
 
-    async findAll(page: number, limit: number) {
+    async findAll(page: number, limit: number): Promise<ProductoDto[]> {
         const result = await this.productoRepository.find(
             {
                 order: {
@@ -23,10 +23,10 @@ export class ProductosService {
                 skip: (page - 1) * limit
             }
         )
-        return result;
+        return ProductoMapper.productoEntitiesToProductoDtoList(result);
     }
 
-    async findByCategoriaId(page: number, limit: number, categoriaId: number) {
+    async findByCategoriaId(page: number, limit: number, categoriaId: number): Promise<ProductoDto[]> {
         const result = await this.productoRepository.find(
             {
                 where: {
@@ -39,7 +39,7 @@ export class ProductosService {
                 skip: (page - 1) * limit
             }
         )
-        return result;
+        return ProductoMapper.productoEntitiesToProductoDtoList(result);
     }
 
     async addProducto(createProductoDto: CreateProductoDto): Promise<ProductoDto> {
