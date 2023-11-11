@@ -1,7 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { CreateProductoDto } from "src/dtos/create-producto.dto";
 import { Producto } from "src/entidades/producto.entity";
 import { Repository } from "typeorm";
+import { ProductoMapper } from "src/mappers/Producto.mapper";
+import { ProductoDto } from "src/dtos/producto.dto";
 
 @Injectable()
 export class ProductosService {
@@ -37,5 +40,11 @@ export class ProductosService {
             }
         )
         return result;
+    }
+
+    async addProducto(createProductoDto: CreateProductoDto): Promise<ProductoDto> {
+        const producto: ProductoDto = ProductoMapper.createProductoDtoToEntity(createProductoDto);
+        const resultado: Producto = await this.productoRepository.save(producto);
+        return ProductoMapper.productoEntityToDto(resultado);
     }
 }

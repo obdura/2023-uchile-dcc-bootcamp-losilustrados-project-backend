@@ -1,5 +1,7 @@
-import { BadRequestException, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { ApiParam, ApiQuery } from '@nestjs/swagger';
+import { CreateProductoDto } from 'src/dtos/create-producto.dto';
+import { ProductoDto } from 'src/dtos/producto.dto';
 import { ProductosService } from 'src/services/productos.service';
 
 @Controller("productos")
@@ -41,11 +43,28 @@ export class ProductosController {
         }
     }
 
+    @Get("/marca/:marcaId")
     async findByMarca() {
         // TODO
     }
 
+    @Get("/proveedor/:proveedorId")
     async findByProveedor() {
         // TODO
+    }
+
+    @Get("/recien-llegados")
+    async findByRecienLlegado() {
+        // TODO
+    }
+
+    @Post("/add")
+    async addProducto(@Body() createProductoDto: CreateProductoDto) {
+        try {
+            const resultado: ProductoDto = await this.productoService.addProducto(createProductoDto);
+            return resultado;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
     }
 }
