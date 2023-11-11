@@ -1,4 +1,5 @@
 import { CreateProductoDto } from "src/dtos/create-producto.dto";
+import { UpdateProductoDto } from "src/dtos/update-producto.dto";
 import { ProductoDto } from "src/dtos/producto.dto";
 import { Producto } from "src/entidades/producto.entity";
 
