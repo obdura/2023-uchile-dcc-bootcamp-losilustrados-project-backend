@@ -9,11 +9,11 @@ import { UpdateProductoDto } from "src/dtos/update-producto.dto";
 
 @Injectable()
 export class ProductosService {
-        
+    
     constructor(
         @InjectRepository(Producto) private productoRepository: Repository<Producto>
     ) {}
-
+    
     async findAll(page: number, limit: number): Promise<ProductoDto[]> {
         const result = await this.productoRepository.find(
             {
@@ -23,7 +23,7 @@ export class ProductosService {
                 take: limit,
                 skip: (page - 1) * limit
             }
-        )
+            )
         return ProductoMapper.productoEntitiesToProductoDtoList(result);
     }
     
@@ -56,13 +56,13 @@ export class ProductosService {
 
         return ProductoMapper.productoEntityToDto(encontrado);
     }
-        
+    
     async addProducto(createProductoDto: CreateProductoDto): Promise<ProductoDto> {
         const producto: ProductoDto = ProductoMapper.createProductoDtoToEntity(createProductoDto);
         const resultado: Producto = await this.productoRepository.save(producto);
         return ProductoMapper.productoEntityToDto(resultado);
     }
-
+    
     async updateProducto(id: number, updateProductoDto: UpdateProductoDto): Promise<ProductoDto> {
         const encontrado: Producto = await this.productoRepository.findOne({
             where: {
@@ -73,12 +73,25 @@ export class ProductosService {
         if (!encontrado) {
             throw Error("No se encontró el producto");
         }
-
+        
         const resultado: Producto = await this.productoRepository.save({
             ...encontrado,
             ...updateProductoDto
         });
-
+        
         return ProductoMapper.productoEntityToDto(resultado);
+    }
+    
+    async deleteProducto(id: number): Promise<ProductoDto> {
+        const encontrado: Producto = await this.productoRepository.findOne({
+            where: {
+              id: id
+            }
+          });
+          if (!encontrado) {
+            throw Error("No se encontró el producto");
+          }
+          await this.productoRepository.remove(encontrado);
+          return ProductoMapper.productoEntityToDto(encontrado);
     }
 }

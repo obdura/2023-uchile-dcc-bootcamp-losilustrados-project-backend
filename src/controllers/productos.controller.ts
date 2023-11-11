@@ -1,5 +1,5 @@
-import { BadRequestException, Body, Controller, DefaultValuePipe, Get, NotFoundException, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { BadRequestException, Body, Controller, DefaultValuePipe, Delete, Get, NotFoundException, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { ApiBody, ApiExcludeEndpoint, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { CreateProductoDto } from 'src/dtos/create-producto.dto';
 import { ProductoDto } from 'src/dtos/producto.dto';
 import { UpdateProductoDto } from 'src/dtos/update-producto.dto';
@@ -93,6 +93,20 @@ export class ProductosController {
     async updateProducto(@Param("id") id: number, @Body() updateProductoDto: UpdateProductoDto) {
         try{
             const resultado = await this.productoService.updateProducto(id, updateProductoDto);
+            return resultado;
+        } catch (error) {
+            throw new NotFoundException(error.message);
+        }
+    }
+
+    @Delete(":id")
+    @ApiExcludeEndpoint()  // al eliminar un producto colisiona con los registros de otras tablas que lo referencian.
+    @ApiParam({ name: "id", required: true, description: "Id del producto a eliminar" })
+    @ApiOkResponse({ description: "Producto eliminado", type: ProductoDto})
+    @ApiNotFoundResponse({ description: "No se encontró el producto" })
+    async deleteProducto(@Param("id") id: number) {
+        try {
+            const resultado = await this.productoService.deleteProducto(id);
             return resultado;
         } catch (error) {
             throw new NotFoundException(error.message);
