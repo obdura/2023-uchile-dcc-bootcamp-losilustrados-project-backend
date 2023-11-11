@@ -20,4 +20,10 @@ export class Producto {
 
     @Column({ name: "id_proveedor" })
     idProveedor: number;
+
+    @Column()
+    descripcion: string;
+
+    @Column()
+    nombre: string;
 }
