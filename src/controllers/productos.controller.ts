@@ -40,4 +40,12 @@ export class ProductosController {
             throw new BadRequestException(error.message);
         }
     }
+
+    async findByMarca() {
+        // TODO
+    }
+
+    async findByProveedor() {
+        // TODO
+    }
 }
