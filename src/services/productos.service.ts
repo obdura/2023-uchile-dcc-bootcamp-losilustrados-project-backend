@@ -23,7 +23,7 @@ export class ProductosService {
                 take: limit,
                 skip: (page - 1) * limit
             }
-            )
+        );
         return ProductoMapper.productoEntitiesToProductoDtoList(result);
     }
     
@@ -39,7 +39,7 @@ export class ProductosService {
                 take: limit,
                 skip: (page - 1) * limit
             }
-            )
+        );
             return ProductoMapper.productoEntitiesToProductoDtoList(result);
         }
 
