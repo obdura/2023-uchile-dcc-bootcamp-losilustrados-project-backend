@@ -1,4 +1,8 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne } from "typeorm";
+import { Categoria } from "./categoria.entity";
+import { Marca } from "./marca.entity";
+import { Ilustracion } from "./ilustracion.entity";
+import { Proveedor } from "./proveedores.entity";
 
 @Entity({ name: 'Productos' })
 export class Producto {
@@ -9,16 +13,20 @@ export class Producto {
     @Column()
     precio: number;
 
-    @Column({ name: "id_categoria" })
+    @ManyToOne(() => Categoria)
+    @JoinColumn({ name: "id_categoria" })
     idCategoria: number;
 
-    @Column({ name: "id_marca" })
+    @ManyToOne(() => Marca)
+    @JoinColumn({ name: "id_marca" })
     idMarca: number;
 
-    @Column({ name: "id_ilustracion" })
+    @ManyToOne(() => Ilustracion)
+    @JoinColumn({ name: "id_ilustracion" })
     idIlustracion: number;
 
-    @Column({ name: "id_proveedor" })
+    @ManyToOne(() => Proveedor)
+    @JoinColumn({ name: "id_proveedor" })
     idProveedor: number;
 
     @Column()

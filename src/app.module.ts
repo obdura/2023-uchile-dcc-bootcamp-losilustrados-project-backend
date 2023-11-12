@@ -15,6 +15,7 @@ import { Marca } from './entidades/marca.entity';
 import { Ilustracion } from './entidades/ilustracion.entity';
 import { ProductosController } from './controllers/productos.controller';
 import { ProductosService } from './services/productos.service';
+import { Proveedor } from './entidades/proveedores.entity';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { ProductosService } from './services/productos.service';
         Producto,
         Categoria,
         Marca,
-        Ilustracion
+        Ilustracion,
+        Proveedor
       ]
     }),
     TypeOrmModule.forFeature([
