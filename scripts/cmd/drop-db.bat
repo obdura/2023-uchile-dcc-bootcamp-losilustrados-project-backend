@@ -1,0 +1,1 @@
+docker exec mysql-server /bin/bash -c "mysql -h localhost -P 3306 -u root -pclave123 -e 'DROP DATABASE IF EXISTS neotaller;'"

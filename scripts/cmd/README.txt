@@ -1,0 +1,1 @@
+You need to execute the script from the /cmd folder. If you execute them outside there, they will fail.

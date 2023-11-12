@@ -1,61 +1,62 @@
-DROP DATABASE neotaller;
-CREATE DATABASE neotaller;
+CREATE DATABASE IF NOT EXISTS neotaller;
 USE neotaller;
 
-CREATE TABLE `Productos` (
+CREATE TABLE IF NOT EXISTS `Productos` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `precio` integer,
   `recien_llegado` bool,
   `id_categoria` integer,
   `id_marca` integer,
   `id_ilustracion` integer,
-  `id_proveedor` integer
+  `id_proveedor` integer,
+  `descripcion` varchar(1000),
+  `nombre` varchar(100)
 );
 
-CREATE TABLE `Categorias` (
+CREATE TABLE IF NOT EXISTS `Categorias` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `nombre` varchar(255)
 );
 
-CREATE TABLE `Ofertas` (
+CREATE TABLE IF NOT EXISTS `Ofertas` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_producto` integer,
   `porcentaje_descuento` integer
 );
 
-CREATE TABLE `Inventario` (
+CREATE TABLE IF NOT EXISTS `Inventario` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_producto` integer,
   `talla` varchar(50),
   `cantidad` integer
 );
 
-CREATE TABLE `Artistas` (
+CREATE TABLE IF NOT EXISTS `Artistas` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `nombre` varchar(255),
   `apellido` varchar(255),
   `url_imagen_perfil` varchar(500)
 );
 
-CREATE TABLE `Ilustraciones` (
+CREATE TABLE IF NOT EXISTS `Ilustraciones` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_artista` integer,
   `fecha_creacion` datetime
 );
 
-CREATE TABLE `Marcas` (
+CREATE TABLE IF NOT EXISTS `Marcas` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `nombre` varchar(255),
   `id_proveedor` integer
 );
 
-CREATE TABLE `Clientes` (
+CREATE TABLE IF NOT EXISTS `Clientes` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `email` varchar(255),
   `password` varchar(255)
 );
 
-CREATE TABLE `Pedidos` (
+CREATE TABLE IF NOT EXISTS `Pedidos` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_cliente` integer,
   `id_direccion` integer,
@@ -64,27 +65,27 @@ CREATE TABLE `Pedidos` (
   `medio_pago` varchar(255)
 );
 
-CREATE TABLE `DetallePedidos` (
+CREATE TABLE IF NOT EXISTS `DetallePedidos` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_pedido` integer,
   `id_producto` integer,
   `cantidad` integer
 );
 
-CREATE TABLE `Boletas` (
+CREATE TABLE IF NOT EXISTS `Boletas` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_pedido` integer,
   `id_cliente` integer,
   `fecha_creacion` datetime
 );
 
-CREATE TABLE `Comprobantes` (
+CREATE TABLE IF NOT EXISTS `Comprobantes` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_pedido` integer,
   `id_cliente` integer
 );
 
-CREATE TABLE `Direcciones` (
+CREATE TABLE IF NOT EXISTS `Direcciones` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `calle` varchar(255),
   `numero` varchar(10),
@@ -96,27 +97,27 @@ CREATE TABLE `Direcciones` (
   `codigo_postal` integer
 );
 
-CREATE TABLE `DireccionesPorCliente` (
+CREATE TABLE IF NOT EXISTS `DireccionesPorCliente` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_cliente` integer,
   `id_direccion` integer
 );
 
-CREATE TABLE `Favoritos` (
+CREATE TABLE IF NOT EXISTS `Favoritos` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_producto` integer,
   `id_cliente` integer,
   `fecha_creacion` datetime
 );
 
-CREATE TABLE `Telefonos` (
+CREATE TABLE IF NOT EXISTS `Telefonos` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_cliente` integer,
-  `numero_telefono` integer,
+  `numero_telefono` varchar(20),
   `es_celular` boolean
 );
 
-CREATE TABLE `Transacciones` (
+CREATE TABLE IF NOT EXISTS `Transacciones` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `id_cliente` integer,
   `id_pedido` integer,
@@ -124,7 +125,7 @@ CREATE TABLE `Transacciones` (
   `fecha_creacion` datetime
 );
 
-CREATE TABLE `Cupones` (
+CREATE TABLE IF NOT EXISTS `Cupones` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `descuento` integer,
   `fecha_desde_vigencia` datetime,
@@ -132,19 +133,19 @@ CREATE TABLE `Cupones` (
   `id_cliente` integer
 );
 
-CREATE TABLE `RepartoComuna` (
+CREATE TABLE IF NOT EXISTS `RepartoComuna` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `fecha_creacion` datetime,
   `comuna` varchar(255)
 );
 
-CREATE TABLE `OrdenTrabajo` (
+CREATE TABLE IF NOT EXISTS `OrdenTrabajo` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `fecha_creacion` datetime,
   `id_pedido` integer
 );
 
-CREATE TABLE `Proveedores` (
+CREATE TABLE IF NOT EXISTS `Proveedores` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `nombre` varchar(255)
 );
