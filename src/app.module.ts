@@ -22,6 +22,7 @@ import { Cliente } from './entidades/cliente.entity';
 import { Artista } from './entidades/artistas.entity';
 import { ArtistasController } from './controllers/artistas.controller';
 import { ArtistasService } from './services/artistas.service';
+import { Inventario } from './entidades/inventario.entity';
 
 @Module({
   imports: [
@@ -47,13 +48,15 @@ import { ArtistasService } from './services/artistas.service';
         Ilustracion,
         Proveedor,
         Cliente,
-        Artista
+        Artista,
+        Inventario
       ]
     }),
     TypeOrmModule.forFeature([
       Producto,
       Cliente,
-      Artista
+      Artista,
+      Inventario
     ])
   ],
   controllers: [

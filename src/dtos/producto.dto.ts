@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-
+import { Inventario } from "src/entidades/inventario.entity";
+import { InventarioDto } from "./inventario.dto";
 
 export class ProductoDto {
 
@@ -26,4 +27,7 @@ export class ProductoDto {
     
     @ApiProperty({ description: "Precio del producto" })
     precio: number;
+
+    @ApiProperty({ description: "Inventario del producto" })
+    inventario: InventarioDto[];
 }

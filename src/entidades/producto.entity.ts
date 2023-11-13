@@ -1,8 +1,9 @@
-import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Categoria } from "./categoria.entity";
 import { Marca } from "./marca.entity";
 import { Ilustracion } from "./ilustracion.entity";
 import { Proveedor } from "./proveedores.entity";
+import { Inventario } from "./inventario.entity";
 
 @Entity({ name: 'Productos' })
 export class Producto {
@@ -34,4 +35,7 @@ export class Producto {
 
     @Column()
     nombre: string;
+
+    @OneToMany(() => Inventario, (entidad) => entidad.idProducto)
+    inventario: Inventario[];
 }
