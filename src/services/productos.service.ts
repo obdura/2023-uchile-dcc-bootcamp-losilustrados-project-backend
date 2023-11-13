@@ -6,6 +6,7 @@ import { Repository } from "typeorm";
 import { ProductoMapper } from "src/mappers/Producto.mapper";
 import { ProductoDto } from "src/dtos/producto.dto";
 import { UpdateProductoDto } from "src/dtos/update-producto.dto";
+import { Inventario } from "src/entidades/inventario.entity";
 
 @Injectable()
 export class ProductosService {
@@ -23,7 +24,7 @@ export class ProductosService {
                 take: limit,
                 skip: (page - 1) * limit
             }
-            )
+        );
         return ProductoMapper.productoEntitiesToProductoDtoList(result);
     }
     
@@ -39,7 +40,7 @@ export class ProductosService {
                 take: limit,
                 skip: (page - 1) * limit
             }
-            )
+        );
             return ProductoMapper.productoEntitiesToProductoDtoList(result);
         }
 
@@ -47,9 +48,11 @@ export class ProductosService {
         const encontrado: Producto = await this.productoRepository.findOne({
             where: {
                 id: id
+            },
+            relations: {
+                inventario: true
             }
         });
-
         if (!encontrado) {
             throw Error("No se encontró el producto");
         }

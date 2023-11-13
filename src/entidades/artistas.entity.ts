@@ -1,7 +1,7 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
-@Entity({ name: 'Artistas' })
-export class Ilustrador {
+@Entity({ name: "Artistas"})
+export class Artista {
 
     @PrimaryColumn()
     id: number;
@@ -11,7 +11,7 @@ export class Ilustrador {
 
     @Column()
     apellido: string;
-    
+
     @Column({ name: "url_imagen_perfil" })
     urlImagenPerfil: string;
 }

@@ -19,6 +19,10 @@ import { Proveedor } from './entidades/proveedores.entity';
 import { ClientesController } from './controllers/clientes.controller';
 import { ClientesService } from './services/clientes.service';
 import { Cliente } from './entidades/cliente.entity';
+import { Artista } from './entidades/artistas.entity';
+import { ArtistasController } from './controllers/artistas.controller';
+import { ArtistasService } from './services/artistas.service';
+import { Inventario } from './entidades/inventario.entity';
 
 @Module({
   imports: [
@@ -43,22 +47,28 @@ import { Cliente } from './entidades/cliente.entity';
         Marca,
         Ilustracion,
         Proveedor,
-        Cliente
+        Cliente,
+        Artista,
+        Inventario
       ]
     }),
     TypeOrmModule.forFeature([
       Producto,
-      Cliente
+      Cliente,
+      Artista,
+      Inventario
     ])
   ],
   controllers: [
     ProductosController,
-    ClientesController
+    ClientesController,
+    ArtistasController
   ],
   providers: [
     AppService,
     ProductosService,
-    ClientesService
+    ClientesService,
+    ArtistasService
   ],
 })
 export class AppModule {}
