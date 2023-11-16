@@ -36,5 +36,4 @@ export class ArtistasController {
             throw new BadRequestException(error.message);
         }
     }
-
 }
