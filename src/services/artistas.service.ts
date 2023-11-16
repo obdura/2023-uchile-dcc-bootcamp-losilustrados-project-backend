@@ -6,7 +6,7 @@ import { ArtistaDto } from "src/dtos/artista.dto";
 
 @Injectable()
 export class ArtistasService {
-    
+        
     constructor(
         @InjectRepository(Artista) private artistaRepository: Repository<Artista>
         ) {}
@@ -32,5 +32,19 @@ export class ArtistasService {
             dto.urlImagenPerfil = entity.urlImagenPerfil;
             return dto;
         });
+    }
+
+    async findOne(id: number): Promise<ArtistaDto> {
+        const entity: Artista = await this.artistaRepository.findOne({
+            where: {
+                id
+            }
+        });
+        let dto: ArtistaDto = new ArtistaDto();
+        dto.id = entity.id;
+        dto.nombre = entity.nombre;
+        dto.apellido = entity.apellido;
+        dto.urlImagenPerfil = entity.urlImagenPerfil;
+        return dto;
     }
 }

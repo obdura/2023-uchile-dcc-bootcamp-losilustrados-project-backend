@@ -1,5 +1,5 @@
-import { BadRequestException, Controller, DefaultValuePipe, Get, ParseIntPipe, Query } from "@nestjs/common";
-import { ApiOkResponse, ApiQuery } from "@nestjs/swagger";
+import { BadRequestException, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Query } from "@nestjs/common";
+import { ApiOkResponse, ApiParam, ApiQuery } from "@nestjs/swagger";
 import { ArtistaDto } from "src/dtos/artista.dto";
 import { ArtistasService } from "src/services/artistas.service";
 
@@ -21,6 +21,17 @@ export class ArtistasController {
         try {
             const results: ArtistaDto[] = await this.artistasService.findAll(page, limit);
             return results;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    @Get("/:id")
+    @ApiParam({ name: "id", required: true, type: Number, description: "El identificador del artista."})
+    @ApiOkResponse({ description: "El artista encontrado.", type: ArtistaDto })
+    async findOne(@Param("id", ParseIntPipe) id: number) {
+        try {
+            const result: ArtistaDto = await this.artistasService.findOne(id);
         } catch (error) {
             throw new BadRequestException(error.message);
         }
