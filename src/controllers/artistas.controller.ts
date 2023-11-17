@@ -41,6 +41,7 @@ export class ArtistasController {
 
     @Post()
     @ApiBody({ type: CreateArtistaDto, description: "Datos del artista a crear."})
+    @ApiOkResponse({ description: "El artista creado", type: ArtistaDto })
     async createArtista(@Body() createArtistaDto: CreateArtistaDto) {
         try {
             const resultado: ArtistaDto = await this.artistasService.addArtista(createArtistaDto)
