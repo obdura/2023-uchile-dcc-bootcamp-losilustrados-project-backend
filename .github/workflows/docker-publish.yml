@@ -50,6 +50,7 @@ jobs:
         - name: send env file via scp
           run: |
             scp -P 22 .env ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WORK_DIR}}/.env
+            rm .env
         - name: connect and pull
           run: |
             ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
