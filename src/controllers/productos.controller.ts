@@ -46,10 +46,47 @@ export class ProductosController {
         }
     }
 
-    @Get("/marca/:marcaId")
-    async findByMarca() {
-        // TODO
+
+    @Get('/marcas/:marcaId')
+    async findAllByMarcaId(@Param('marcaId') marcaId: number): Promise<ProductoDto[]> {
+      const productos = await this.productoService.findAllByMarcaId(marcaId);
+      return productos.map(producto => {
+        let productoDto:ProductoDto=new ProductoDto();
+        productoDto.id= producto.id;
+        productoDto.nombre= producto.nombre;
+        productoDto.descripcion= producto.descripcion;
+        productoDto.idCategoria= producto.idCategoria;
+        productoDto.idIlustracion= producto.idIlustracion;
+        productoDto.idMarca= producto.idMarca;
+        productoDto.idProveedor= producto.idProveedor;
+        productoDto.precio= producto.precio;
+        productoDto.inventario= producto.inventario;
+        return productoDto;
+        // Mapea otras propiedades aquí
+      });
     }
+
+    //MC
+    /*
+    @Get("marca/:marcaId")
+    @ApiQuery({ name: 'page', required: false, type: Number, description: 'La página del listado de productos.'})
+    @ApiQuery({ name: 'limit', required: false, type: Number, description: 'El número de productos a mostrar por página.'})
+    @ApiParam({ name: 'marcaId', required: true, type: Number, description: 'El id de la marca de los productos a mostrar.'})
+    @ApiOkResponse({ description: 'Los productos encontrados.', type: ProductoDto, isArray: true })
+    async findByMarca(
+        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+        @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+        @Param('marcaId', ParseIntPipe) marcaId: number
+    ) {
+        try {
+            const result: ProductoDto[] = await this.productoService.findByMarcaId(page, limit, marcaId);
+            return result;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+*/
+
 
     @Get("/proveedor/:proveedorId")
     async findByProveedor() {
