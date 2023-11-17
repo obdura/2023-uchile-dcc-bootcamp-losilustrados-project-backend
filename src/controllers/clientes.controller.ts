@@ -2,8 +2,9 @@ import { BadRequestException, Body, Controller, Patch, Post } from "@nestjs/comm
 import { CreateClienteDto } from "src/dtos/create-cliente.dto";
 import { ClienteDto } from "src/dtos/cliente.dto";
 import { ClientesService } from "src/services/clientes.service";
-import { ApiBody, ApiOkResponse } from "@nestjs/swagger";
+import { ApiBody, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
+@ApiTags("Usuarios")
 @Controller("clientes")
 export class ClientesController {
 
