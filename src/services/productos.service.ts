@@ -44,6 +44,65 @@ export class ProductosService {
             return ProductoMapper.productoEntitiesToProductoDtoList(result);
         }
 
+        //MC
+
+        async findAllByMarcaId(marcaId: number): Promise<Producto[]> {
+            return this.productoRepository.find({
+             // where: { marca: { id: marcaId } },
+             where:{
+                idMarca:marcaId
+             }
+            });
+          }
+/*
+        async findByMarcaId(page: number, limit: number, marcaID: number): Promise<ProductoDto[]> {
+            const result = await this.productoRepository.find(
+                {
+                    where:{
+                        marca: { id: marcaID }
+                    },
+                    order: {
+                        id: "ASC"
+                    },
+                    
+                        // TODO: Recibir esto como query param.
+                    
+                    take: limit,
+                    skip: (page - 1) * limit
+                }
+            );
+                return ProductoMapper.productoEntitiesToProductoDtoList(result);
+            }
+
+            async findRecienLlegados(page: number, limit: number, recien: boolean): Promise<ProductoDto[]> {
+                const result = await this.productoRepository.exist(
+                    {
+                        where:{
+                            recienLlegado: recien
+                        },
+                       if (!existe) {
+                        throw Error("No hay recien productos llegados");
+                     }
+                 const result = await this.productoRepository.find(
+                {
+                    where:{
+                        recienLlegado: recien
+                    },
+                    order: {
+                        id: "ASC"
+                    },
+            return ProductoMapper.productoEntitiesToProductoDtoList(result);
+            }
+                        
+                        take: limit,
+                        skip: (page - 1) * limit
+                    }
+                );
+                    return ProductoMapper.productoEntitiesToProductoDtoList(result);
+                }
+*/
+        //MC
+
     async findProducto(id: number) {
         const encontrado: Producto = await this.productoRepository.findOne({
             where: {

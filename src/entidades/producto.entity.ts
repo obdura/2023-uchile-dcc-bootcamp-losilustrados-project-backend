@@ -18,8 +18,8 @@ export class Producto {
     @JoinColumn({ name: "id_categoria" })
     idCategoria: number;
 
-    @ManyToOne(() => Marca)
-    @JoinColumn({ name: "id_marca" })
+    //@ManyToOne(() => Marca)
+    @Column({ name: "id_marca" })
     idMarca: number;
 
     @ManyToOne(() => Ilustracion)
@@ -36,6 +36,11 @@ export class Producto {
     @Column()
     nombre: string;
 
+
     @OneToMany(() => Inventario, (entidad) => entidad.idProducto)
     inventario: Inventario[];
+
+   // @ManyToOne(() => Marca, marca => marca.productos)
+    //marca: Marca;
+
 }
