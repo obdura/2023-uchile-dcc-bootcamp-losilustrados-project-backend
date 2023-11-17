@@ -39,7 +39,7 @@ jobs:
             ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
         - name: create local env file
           run: |
-            cat > .env.local << EOF
+            cat > .env << EOF
             MYSQL_DB_TYPE=${{ secrets.MYSQL_DB_TYPE }}
             MYSQL_DB_HOST=${{ secrets.MYSQL_DB_HOST }}
             MYSQL_DB_PORT=${{ secrets.MYSQL_DB_PORT }}
