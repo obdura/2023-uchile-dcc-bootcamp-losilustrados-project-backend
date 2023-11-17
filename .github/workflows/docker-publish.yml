@@ -37,6 +37,19 @@ jobs:
             install -m 600 -D /dev/null ~/.ssh/id_rsa
             echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
             ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+        - name: create local env file
+          run: |
+            cat > .env.local << EOF
+            MYSQL_DB_TYPE=${{ secrets.MYSQL_DB_TYPE }}
+            MYSQL_DB_HOST=${{ secrets.MYSQL_DB_HOST }}
+            MYSQL_DB_PORT=${{ secrets.MYSQL_DB_PORT }}
+            MYSQL_DB_USER=${{ secrets.MYSQL_DB_USER }}
+            MYSQL_DB_PASS=${{ secrets.MYSQL_DB_PASS }}
+            MYSQL_DB_DB=${{ secrets.MYSQL_DB_DB }}
+            EOF
+        - name: send env file via scp
+          run: |
+            scp -P 22 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/los-ilustrados/neotaller/backend/.env .env
         - name: connect and pull
           run: |
             ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
@@ -44,12 +57,6 @@ jobs:
               "cd ${{ secrets.WORK_DIR }} " \
               "&& docker compose pull " \
               "&& docker compose up -d " \
-              "--env MYSQL_DB_TYPE=${{ secrets.MYSQL_DB_TYPE }} "\
-              "--env MYSQL_DB_HOST=${{ secrets.MYSQL_DB_HOST }} "\
-              "--env MYSQL_DB_PORT=${{ secrets.MYSQL_DB_PORT }} "\
-              "--env MYSQL_DB_USER=${{ secrets.MYSQL_DB_USER }} "\
-              "--env MYSQL_DB_PASS=${{ secrets.MYSQL_DB_PASS }} "\
-              "--env MYSQL_DB_DB=${{ secrets.MYSQL_DB_DB }} "\
               "&& exit"
         - name: cleanup
           run: rm -rf ~/.ssh
