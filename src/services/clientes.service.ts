@@ -25,21 +25,40 @@ export class ClientesService {
         if (result) {
             throw Error("Ya existe un cliente registrado con ese correo electrónico.");
         }
-
+        
         // TODO: crear mapper para esto.
         // dto to entity
         let cliente = new Cliente();
         cliente.email = createClienteDto.email;
         cliente.password = createClienteDto.password;
-
+        
         const resultado: Cliente = await this.clienteRepository.save(cliente);
 
         // TODO: crear mapper para esto.
         // entity to dto
         let clienteDto = new ClienteDto();
+        clienteDto.id = resultado.id;
         clienteDto.email = resultado.email;
-
+        
         return clienteDto;
+    }
+    
+    async findAll(page: number, limit: number): Promise<ClienteDto[]> {
+        const resultados = await this.clienteRepository.find(
+            {
+                order: {
+                    id: "ASC"
+                },
+                take: limit,
+                skip: (page - 1) * limit
+            }
+        )
+        return resultados.map((entidad) => {
+            let dto = new ClienteDto();
+            dto.id = entidad.id;
+            dto.email = entidad.email;
+            return dto;
+        });
     }
 
 }

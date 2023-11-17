@@ -1,8 +1,10 @@
-import { BadRequestException, Controller, DefaultValuePipe, Get, ParseIntPipe, Query } from "@nestjs/common";
-import { ApiOkResponse, ApiQuery } from "@nestjs/swagger";
+import { BadRequestException, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Post, Query, Body } from "@nestjs/common";
+import { ApiOkResponse, ApiParam, ApiQuery, ApiBody, ApiTags } from "@nestjs/swagger";
 import { ArtistaDto } from "src/dtos/artista.dto";
+import { CreateArtistaDto } from "src/dtos/create-artista.dto";
 import { ArtistasService } from "src/services/artistas.service";
 
+@ApiTags("Artistas")
 @Controller("artistas")
 export class ArtistasController {
 
@@ -26,4 +28,26 @@ export class ArtistasController {
         }
     }
 
+    @Get("/:id")
+    @ApiParam({ name: "id", required: true, type: Number, description: "El identificador del artista."})
+    @ApiOkResponse({ description: "El artista encontrado.", type: ArtistaDto })
+    async findOne(@Param("id", ParseIntPipe) id: number) {
+        try {
+            const result: ArtistaDto = await this.artistasService.findOne(id);
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    @Post()
+    @ApiBody({ type: CreateArtistaDto, description: "Datos del artista a crear."})
+    @ApiOkResponse({ description: "El artista creado", type: ArtistaDto })
+    async createArtista(@Body() createArtistaDto: CreateArtistaDto) {
+        try {
+            const resultado: ArtistaDto = await this.artistasService.addArtista(createArtistaDto)
+            return resultado;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }
