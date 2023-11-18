@@ -10,10 +10,10 @@ export class ProductoMapper {
         const entidad = new Producto();
         entidad.nombre = dto.nombre;
         entidad.descripcion = dto.descripcion;
-        entidad.idCategoria = dto.idCategoria;
-        entidad.idIlustracion = dto.idIlustracion;
-        entidad.idMarca = dto.idMarca;
-        entidad.idProveedor = dto.idProveedor
+        entidad.categoria = dto.categoria;
+        entidad.ilustracion = dto.ilustracion;
+        entidad.marca = dto.marca;
+        entidad.proveedor = dto.proveedor
         entidad.precio = dto.precio;
         return entidad;
     }
@@ -23,17 +23,17 @@ export class ProductoMapper {
         dto.id = entidad.id;
         dto.nombre = entidad.nombre;
         dto.descripcion = entidad.descripcion;
-        dto.idCategoria = entidad.idCategoria;
-        dto.idIlustracion = entidad.idIlustracion;
-        dto.idMarca = entidad.idMarca;
-        dto.idProveedor = entidad.idProveedor;
+        dto.categoria = entidad.categoria;
+        dto.ilustracion = entidad.ilustracion;
+        dto.marca = entidad.marca;
+        dto.proveedor = entidad.proveedor;
         dto.precio = entidad.precio;
 
-        if(!entidad.inventario) {
+        if(!entidad.inventarios) {
             return dto;
         }
 
-        dto.inventario = entidad.inventario.map((inventarioEntidad) => {
+        dto.inventarios = entidad.inventarios.map((inventarioEntidad) => {
             let inventarioDto = new InventarioDto();
             inventarioDto.id = inventarioEntidad.id;
             inventarioDto.talla = inventarioEntidad.talla;

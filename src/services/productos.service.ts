@@ -32,7 +32,9 @@ export class ProductosService {
         const result = await this.productoRepository.find(
             {
                 where: {
-                    idCategoria: categoriaId
+                    categoria: {
+                        id: categoriaId
+                    }
                 },
                 order: {
                     id: "ASC" // TODO: Recibir esto como query param.
@@ -50,7 +52,9 @@ export class ProductosService {
             return this.productoRepository.find({
              // where: { marca: { id: marcaId } },
              where:{
-                idMarca:marcaId
+                marca: {
+                    id: marcaId
+                }
              }
             });
           }
@@ -103,13 +107,16 @@ export class ProductosService {
 */
         //MC
 
-    async findProducto(id: number) {
+    async findProducto(id: number) : Promise<ProductoDto> {
         const encontrado: Producto = await this.productoRepository.findOne({
             where: {
                 id: id
             },
             relations: {
-                inventario: true
+                inventarios: true,
+                categoria: true,
+                marca: true,
+                ilustracion: true
             }
         });
         if (!encontrado) {
