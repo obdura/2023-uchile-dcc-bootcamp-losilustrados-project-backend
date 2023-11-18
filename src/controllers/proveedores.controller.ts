@@ -4,7 +4,7 @@ import { CreateProveedorDto } from "src/dtos/create-proveedor.dto";
 import { UpdateProveedorDto } from "src/dtos/update-proveedor.dto";
 
 @ApiTags("Proveedores")
-@Controller()
+@Controller("proveeedores")
 export class ProveedoresController {
     
     constructor(

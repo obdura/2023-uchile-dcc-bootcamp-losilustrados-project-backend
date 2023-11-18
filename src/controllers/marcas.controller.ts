@@ -5,7 +5,7 @@ import { UpdateMarcaDto } from "src/dtos/update-marca.dto";
 import { MarcasService } from "src/services/marcas.service";
 
 @ApiTags("Marcas")
-@Controller()
+@Controller("marcas")
 export class MarcasController {
     
     constructor(
