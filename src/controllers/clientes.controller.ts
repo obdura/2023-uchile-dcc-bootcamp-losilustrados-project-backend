@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, DefaultValuePipe, Get, ParseIntPipe, Patch, Post, Query } from "@nestjs/common";
+import { BadRequestException, Body, Controller, DefaultValuePipe, Delete, Get, ParseIntPipe, Patch, Post, Query } from "@nestjs/common";
 import { CreateClienteDto } from "src/dtos/create-cliente.dto";
 import { ClienteDto } from "src/dtos/cliente.dto";
 import { ClientesService } from "src/services/clientes.service";
@@ -41,5 +41,15 @@ export class ClientesController {
         } catch (error) {
             throw new BadRequestException(error.message);
         }
+    }
+
+    @Patch("/:id")
+    async updateCliente() {
+
+    }
+
+    @Delete("/:id")
+    async deleteCliente() {
+
     }
 }

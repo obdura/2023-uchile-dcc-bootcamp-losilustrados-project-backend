@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Post, Query, Body } from "@nestjs/common";
+import { BadRequestException, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Post, Query, Body, Patch, Delete } from "@nestjs/common";
 import { ApiOkResponse, ApiParam, ApiQuery, ApiBody, ApiTags } from "@nestjs/swagger";
 import { ArtistaDto } from "src/dtos/artista.dto";
 import { CreateArtistaDto } from "src/dtos/create-artista.dto";
@@ -49,5 +49,15 @@ export class ArtistasController {
         } catch (error) {
             throw new BadRequestException(error.message);
         }
+    }
+
+    @Patch("/:id")
+    async updateArtista() {
+
+    }
+
+    @Delete("/:id")
+    async deleteArtista() {
+
     }
 }

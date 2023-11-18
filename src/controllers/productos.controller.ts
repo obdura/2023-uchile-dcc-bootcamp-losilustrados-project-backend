@@ -138,7 +138,7 @@ export class ProductosController {
     }
 
     @Delete(":id")
-    @ApiExcludeEndpoint()  // al eliminar un producto colisiona con los registros de otras tablas que lo referencian. TODO!!
+    //@ApiExcludeEndpoint()  // al eliminar un producto colisiona con los registros de otras tablas que lo referencian. TODO!!
     @ApiParam({ name: "id", required: true, description: "Id del producto a eliminar" })
     @ApiOkResponse({ description: "Producto eliminado", type: ProductoDto})
     @ApiNotFoundResponse({ description: "No se encontró el producto" })
