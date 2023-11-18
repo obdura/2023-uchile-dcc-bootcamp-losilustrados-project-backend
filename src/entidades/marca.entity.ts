@@ -4,14 +4,12 @@ import { Producto } from "./producto.entity";
 @Entity({ name: "Marcas" })
 export class Marca {
     
-    @PrimaryColumn()
-    id: number;
+  @PrimaryColumn()
+  id: number;
 
-    @Column()
-    nombre: string;
+  @Column()
+  nombre: string;
     
-   
-
-   // @OneToMany(() => Producto, producto => producto.marca)
-  //productos: Producto[];
+  @OneToMany(() => Producto, (producto) => producto.marca)
+  productos: Producto[];
 }

@@ -7,9 +7,9 @@ export class Inventario {
     @PrimaryColumn()
     id: number;
 
-    @ManyToOne(() => Producto )
+    @ManyToOne(() => Producto, (producto) => producto.inventarios)
     @JoinColumn({ name: "id_producto" })
-    idProducto: number;
+    producto: Producto;
     
     @Column()
     talla: string;

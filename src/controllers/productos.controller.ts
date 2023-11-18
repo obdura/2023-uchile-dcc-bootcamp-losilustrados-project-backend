@@ -49,22 +49,22 @@ export class ProductosController {
 
 
     @Get('/marcas/:marcaId')
-    async findAllByMarcaId(@Param('marcaId') marcaId: number): Promise<ProductoDto[]> {
-      const productos = await this.productoService.findAllByMarcaId(marcaId);
-      return productos.map(producto => {
-        let productoDto:ProductoDto=new ProductoDto();
-        productoDto.id= producto.id;
-        productoDto.nombre= producto.nombre;
-        productoDto.descripcion= producto.descripcion;
-        productoDto.idCategoria= producto.idCategoria;
-        productoDto.idIlustracion= producto.idIlustracion;
-        productoDto.idMarca= producto.idMarca;
-        productoDto.idProveedor= producto.idProveedor;
-        productoDto.precio= producto.precio;
-        productoDto.inventario= producto.inventario;
-        return productoDto;
-        // Mapea otras propiedades aquí
-      });
+    async findAllByMarcaId(@Param('marcaId') marcaId: number) {
+      //const productos = await this.productoService.findAllByMarcaId(marcaId);
+      //return productos.map(producto => {
+      //  let productoDto:ProductoDto=new ProductoDto();
+      //  productoDto.id= producto.id;
+      //  productoDto.nombre= producto.nombre;
+      //  productoDto.descripcion= producto.descripcion;
+      //  productoDto.idCategoria= producto.idCategoria;
+      //  productoDto.idIlustracion= producto.idIlustracion;
+      //  productoDto.idMarca= producto.idMarca;
+      //  productoDto.idProveedor= producto.idProveedor;
+      //  productoDto.precio= producto.precio;
+      //  productoDto.inventario= producto.inventarios;
+      //  return productoDto;
+      //  // Mapea otras propiedades aquí
+      //});
     }
 
     //MC
@@ -119,6 +119,7 @@ export class ProductosController {
             const resultado = await this.productoService.findProducto(id);
             return resultado;
         } catch (error) {
+            console.log(error);
             throw new NotFoundException(error.message);
         }
     }
@@ -138,7 +139,7 @@ export class ProductosController {
     }
 
     @Delete(":id")
-    @ApiExcludeEndpoint()  // al eliminar un producto colisiona con los registros de otras tablas que lo referencian. TODO!!
+    //@ApiExcludeEndpoint()  // al eliminar un producto colisiona con los registros de otras tablas que lo referencian. TODO!!
     @ApiParam({ name: "id", required: true, description: "Id del producto a eliminar" })
     @ApiOkResponse({ description: "Producto eliminado", type: ProductoDto})
     @ApiNotFoundResponse({ description: "No se encontró el producto" })
