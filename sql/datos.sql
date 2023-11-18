@@ -58,13 +58,13 @@ VALUES
 ('Gildan', 4),
 ('Champions', 5);
 
-INSERT INTO Productos (precio, recien_llegado, id_categoria, id_marca, id_ilustracion, id_proveedor)
+INSERT INTO Productos (precio, recien_llegado, id_categoria, id_marca, id_ilustracion, id_proveedor, descripcion, nombre)
 VALUES
-(10000, True, 1, 5, 1, 1),
-(12000, True, 2, 4, 2, 2),
-(20000, True, 3, 3, 3, 2),
-(40000, False, 4, 2, 4, 4),
-(50000, False, 5, 1, 5, 1);
+(10000, True, 1, 5, 1, 1, 'polera blanca de algodon', 'polera'),
+(12000, True, 2, 4, 2, 2, 'pantalon jeans azul', 'pantalon'),
+(20000, True, 3, 3, 3, 2, 'chaqueta cuero negro', 'chaqueta'),
+(40000, False, 4, 2, 4, 4, 'polera algodon roja', 'polera'),
+(50000, False, 5, 1, 5, 1, 'vestido floreado', 'vestido');
 
 INSERT INTO RepartoComuna (comuna)
 VALUES ('Santiago'), ('Estacion Central'), ('La Florida'), ('Pedro Aguirre Cerda'), ('Quilicura');
@@ -157,5 +157,10 @@ VALUES
 (1, 4, '2023-10-29', '2023-10-29'),
 (1, 5, '2023-10-28', '2023-10-28');
 
-
-
+INSERT INTO Carrito (id_producto, id_cliente, talla, cantidad)
+VALUES 
+(1, 1, 'XL', 2),
+(1, 2, 'XL', 2),
+(1, 3, 'XL', 2),
+(1, 4, 'XL', 2),
+(1, 5, 'XL', 2);
