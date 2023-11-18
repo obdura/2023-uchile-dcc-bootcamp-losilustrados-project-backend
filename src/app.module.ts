@@ -23,6 +23,8 @@ import { Artista } from './entidades/artistas.entity';
 import { ArtistasController } from './controllers/artistas.controller';
 import { ArtistasService } from './services/artistas.service';
 import { Inventario } from './entidades/inventario.entity';
+import { ProveedoresController } from './controllers/proveedores.dto';
+import { MarcasController } from './controllers/marcas.controller';
 
 @Module({
   imports: [
@@ -62,7 +64,9 @@ import { Inventario } from './entidades/inventario.entity';
   controllers: [
     ProductosController,
     ClientesController,
-    ArtistasController
+    ArtistasController,
+    ProveedoresController,
+    MarcasController
   ],
   providers: [
     AppService,
