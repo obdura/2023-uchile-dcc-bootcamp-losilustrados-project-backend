@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CreateProductoDto } from "src/dtos/create-producto.dto";
 import { Producto } from "src/entidades/producto.entity";
 import { Repository } from "typeorm";
-import { ProductoMapper } from "src/mappers/Producto.mapper";
+import { ProductoMapper } from "src/mappers/producto.mapper";
 import { ProductoDto } from "src/dtos/producto.dto";
 import { UpdateProductoDto } from "src/dtos/update-producto.dto";
 import { Inventario } from "src/entidades/inventario.entity";
@@ -116,20 +116,21 @@ export class ProductosService {
                 inventarios: true,
                 categoria: true,
                 marca: true,
-                ilustracion: true
+                ilustracion: true,
+                proveedor: true
             }
         });
         if (!encontrado) {
             throw Error("No se encontró el producto");
         }
-
-        return ProductoMapper.productoEntityToDto(encontrado);
+        console.log(encontrado);
+        return ProductoMapper.entityToDto(encontrado);
     }
     
     async addProducto(createProductoDto: CreateProductoDto): Promise<ProductoDto> {
         const producto: ProductoDto = ProductoMapper.createProductoDtoToEntity(createProductoDto);
         const resultado: Producto = await this.productoRepository.save(producto);
-        return ProductoMapper.productoEntityToDto(resultado);
+        return ProductoMapper.entityToDto(resultado);
     }
     
     async updateProducto(id: number, updateProductoDto: UpdateProductoDto): Promise<ProductoDto> {
@@ -148,7 +149,7 @@ export class ProductosService {
             ...updateProductoDto
         });
         
-        return ProductoMapper.productoEntityToDto(resultado);
+        return ProductoMapper.entityToDto(resultado);
     }
     
     async deleteProducto(id: number): Promise<ProductoDto> {
@@ -161,6 +162,6 @@ export class ProductosService {
             throw Error("No se encontró el producto");
           }
           await this.productoRepository.remove(encontrado);
-          return ProductoMapper.productoEntityToDto(encontrado);
+          return ProductoMapper.entityToDto(encontrado);
     }
 }

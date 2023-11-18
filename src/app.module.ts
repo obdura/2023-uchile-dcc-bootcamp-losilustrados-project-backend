@@ -23,7 +23,7 @@ import { Artista } from './entidades/artistas.entity';
 import { ArtistasController } from './controllers/artistas.controller';
 import { ArtistasService } from './services/artistas.service';
 import { Inventario } from './entidades/inventario.entity';
-import { ProveedoresController } from './controllers/proveedores.dto';
+import { ProveedoresController } from './controllers/proveedores.controller';
 import { MarcasController } from './controllers/marcas.controller';
 import { MarcasService } from './services/marcas.service';
 
@@ -60,7 +60,7 @@ import { MarcasService } from './services/marcas.service';
       Cliente,
       Artista,
       Inventario,
-      Marca
+      Marca,
     ])
   ],
   controllers: [
