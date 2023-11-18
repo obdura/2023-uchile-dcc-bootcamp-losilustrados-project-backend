@@ -18,7 +18,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd ~/home/seba/los-ilustrados/neotaller/backend-dev/2023-uchile-dcc-bootcamp-losilustrados-project-backend
+          cd ~/los-ilustrados/neotaller/backend-dev/2023-uchile-dcc-bootcamp-losilustrados-project-backend
           git pull origin dev
           git checkout dev
           docker compose up -d --build
