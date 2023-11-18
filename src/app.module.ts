@@ -38,12 +38,12 @@ import { MarcasService } from './services/marcas.service';
     // IllustratorModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      type: process.env.MYSQL_DB_TYPE as any,  // strange error: https://stackoverflow.com/q/58181006
-      host: process.env.MYSQL_DB_HOST,
-      port: parseInt(process.env.MYSQL_DB_PORT, 10),
-      username: process.env.MYSQL_DB_USER,
-      password: process.env.MYSQL_DB_PASS,
-      database: process.env.MYSQL_DB_DB,
+      type: process.env.MYSQL_TYPE as any,  // strange error: https://stackoverflow.com/q/58181006
+      host: process.env.MYSQL_HOST,
+      port: parseInt(process.env.MYSQL_PORT, 10),
+      username: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE,
       entities: [
         Producto,
         Categoria,

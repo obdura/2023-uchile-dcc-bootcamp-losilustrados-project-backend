@@ -38,3 +38,4 @@ yarn.lock.env
 
 .env
 Dockerfile
+/Dockerfiles
