@@ -21,4 +21,6 @@ jobs:
           cd ~/los-ilustrados/neotaller/backend-dev/2023-uchile-dcc-bootcamp-losilustrados-project-backend
           git pull origin dev
           git checkout dev
+          docker rm container neotaller-mysql-server
+          docker rm container neotaller-backend
           docker compose up -d --build
