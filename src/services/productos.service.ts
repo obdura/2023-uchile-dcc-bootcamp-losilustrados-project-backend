@@ -7,6 +7,10 @@ import { ProductoMapper } from "src/mappers/producto.mapper";
 import { ProductoDto } from "src/dtos/producto.dto";
 import { UpdateProductoDto } from "src/dtos/update-producto.dto";
 import { Inventario } from "src/entidades/inventario.entity";
+import { CategoriaMapper } from "src/mappers/categoria.mapper";
+import { IlustracionMapper } from "src/mappers/ilustracion.mapper";
+import { MarcaMapper } from "src/mappers/marca.mapper";
+import { ProveedorMapper } from "src/mappers/proveedor.mapper";
 
 @Injectable()
 export class ProductosService {
@@ -133,23 +137,35 @@ export class ProductosService {
         return ProductoMapper.entityToDto(resultado);
     }
     
-    async updateProducto(id: number, updateProductoDto: UpdateProductoDto): Promise<ProductoDto> {
-        const encontrado: Producto = await this.productoRepository.findOne({
+    async updateProducto(id: number, dto: UpdateProductoDto): Promise<ProductoDto> {
+        const found: Producto = await this.productoRepository.findOne({
             where: {
                 id: id 
             }
         });
 
-        if (!encontrado) {
+        if (!found) {
             throw Error("No se encontró el producto");
         }
+
+        let entity: Producto = new Producto();
+        entity.nombre = dto.nombre;
+        entity.precio = dto.precio;
+        entity.descripcion = dto.descripcion
+        entity.categoria = CategoriaMapper.dtoToEntity(dto.categoria);
+        entity.ilustracion = IlustracionMapper.dtoToEntity(dto.ilustracion);
+        entity.marca = MarcaMapper.dtoToEntity(dto.marca);
+        entity.proveedor = ProveedorMapper.dtoToEntity(dto.proveedor);
         
-        const resultado: Producto = await this.productoRepository.save({
-            ...encontrado,
-            ...updateProductoDto
+        await this.productoRepository.update(id, entity);
+
+        const updatedEntity = await this.productoRepository.findOne({
+            where: {
+                id: id
+            }
         });
         
-        return ProductoMapper.entityToDto(resultado);
+        return ProductoMapper.entityToDto(updatedEntity);
     }
     
     async deleteProducto(id: number): Promise<ProductoDto> {

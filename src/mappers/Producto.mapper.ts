@@ -29,19 +29,19 @@ export class ProductoMapper {
         dto.descripcion = entidad.descripcion;
         dto.precio = entidad.precio;
 
-        if(dto.categoria) {
+        if(entidad.categoria) {
             dto.categoria = CategoriaMapper.entityToDto(entidad.categoria);
         }
 
-        if(dto.ilustracion) {
+        if(entidad.ilustracion) {
             dto.ilustracion = IlustracionMapper.entityToDto(entidad.ilustracion);
         }
 
-        if(dto.marca) {
+        if(entidad.marca) {
             dto.marca = MarcaMapper.entityToDto(entidad.marca);
         }
 
-        if(dto.proveedor) {
+        if(entidad.proveedor) {
             dto.proveedor = ProveedorMapper.entityToDto(entidad.proveedor);
         }
 

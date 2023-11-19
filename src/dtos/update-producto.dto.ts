@@ -1,42 +1,42 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsInt, IsString, MaxLength, IsOptional } from "class-validator";
+import { IlustracionDto } from "./ilustracion.dto";
+import { ProveedorDto } from "./proveedor.dto";
+import { MarcaDto } from "./marca.dto";
+import { CategoriaDto } from "./categoria.dto";
 
 export class UpdateProductoDto {
     
-    @ApiProperty({ example: "Polera", description: "Nombre del producto"})
+    @ApiProperty({ example: "Polera", description: "Nombre del producto" })
     @IsOptional()
     @IsString()
     @MaxLength(100)
     nombre: string;
 
-    @ApiProperty({ example: "Polera de color blanco", description: "Descripción del producto"})
+    @ApiProperty({ example: "Polera de color blanco", description: "Descripción del producto" })
     @IsOptional()
     @IsString()
     @MaxLength(1000)
     descripcion: string;
 
-    @ApiProperty({ example: "10000", description: "Precio del producto"})
+    @ApiProperty({ example: "10000", description: "Precio del producto" })
     @IsOptional()
     @IsInt()
     precio: number;
 
-    @ApiProperty({ example: "1", description: "Id de la categoría del producto"})
+    @ApiProperty({ description: "Id de la categoría del producto", type: CategoriaDto })
     @IsOptional()
-    @IsInt()
-    idCategoria: number;
+    categoria: CategoriaDto;
 
-    @ApiProperty({ example: "1", description: "Id de la marca del producto"})
+    @ApiProperty({ description: "Marca del producto", type: MarcaDto })
     @IsOptional()
-    @IsInt()
-    idMarca: number;
+    marca: MarcaDto;
 
-    @ApiProperty({ example: "1", description: "Id de la ilustración del producto"})
+    @ApiProperty({ description: "Ilustración del producto", type: IlustracionDto })
     @IsOptional()
-    @IsInt()
-    idIlustracion: number;
+    ilustracion: IlustracionDto;
 
-    @ApiProperty({ example: "1", description: "Id del proveedor del producto"})
+    @ApiProperty({ description: "Proveedor del producto", type: ProveedorDto})
     @IsOptional()
-    @IsInt()
-    idProveedor: number;
+    proveedor: ProveedorDto;
 }
