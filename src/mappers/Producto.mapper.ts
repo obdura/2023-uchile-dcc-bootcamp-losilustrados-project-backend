@@ -27,11 +27,23 @@ export class ProductoMapper {
         dto.id = entidad.id;
         dto.nombre = entidad.nombre;
         dto.descripcion = entidad.descripcion;
-        dto.categoria = CategoriaMapper.entityToDto(entidad.categoria);
-        dto.ilustracion = IlustracionMapper.entityToDto(entidad.ilustracion);
-        dto.marca = MarcaMapper.entityToDto(entidad.marca);
-        dto.proveedor = ProveedorMapper.entityToDto(entidad.proveedor);
         dto.precio = entidad.precio;
+
+        if(dto.categoria) {
+            dto.categoria = CategoriaMapper.entityToDto(entidad.categoria);
+        }
+
+        if(dto.ilustracion) {
+            dto.ilustracion = IlustracionMapper.entityToDto(entidad.ilustracion);
+        }
+
+        if(dto.marca) {
+            dto.marca = MarcaMapper.entityToDto(entidad.marca);
+        }
+
+        if(dto.proveedor) {
+            dto.proveedor = ProveedorMapper.entityToDto(entidad.proveedor);
+        }
 
         if(!entidad.inventarios) {
             return dto;

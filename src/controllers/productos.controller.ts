@@ -119,7 +119,6 @@ export class ProductosController {
             const resultado = await this.productoService.findProducto(id);
             return resultado;
         } catch (error) {
-            console.log(error);
             throw new NotFoundException(error.message);
         }
     }
