@@ -157,7 +157,7 @@ VALUES
 (1, 4, '2023-10-29', '2023-10-29'),
 (1, 5, '2023-10-28', '2023-10-28');
 
-INSERT INTO Carrito (id_producto, id_cliente, talla, cantidad)
+INSERT INTO RegistroCarrito (id_producto, id_cliente, talla, cantidad)
 VALUES 
 (1, 1, 'XL', 2),
 (1, 2, 'XL', 2),

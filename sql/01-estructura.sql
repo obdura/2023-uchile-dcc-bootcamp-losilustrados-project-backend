@@ -150,17 +150,17 @@ CREATE TABLE IF NOT EXISTS `Proveedores` (
   `nombre` varchar(255)
 );
 
-CREATE TABLE IF NOT EXISTS Carrito (
-	id integer PRIMARY KEY AUTO_INCREMENT,
-    id_producto integer,
-    id_cliente integer,
-    talla varchar(50),
-    cantidad integer
+CREATE TABLE IF NOT EXISTS RegistroCarrito (
+  id integer PRIMARY KEY AUTO_INCREMENT,
+  id_producto integer,
+  id_cliente integer,
+  talla varchar(50),
+  cantidad integer
 );
 
-ALTER TABLE Carrito ADD FOREIGN KEY (id_cliente) REFERENCES Clientes (id);
+ALTER TABLE RegistroCarrito ADD FOREIGN KEY (id_cliente) REFERENCES Clientes (id);
 
-ALTER TABLE Carrito ADD FOREIGN KEY (id_producto) REFERENCES Productos (id);
+ALTER TABLE RegistroCarrito ADD FOREIGN KEY (id_producto) REFERENCES Productos (id);
 
 ALTER TABLE `Pedidos` ADD FOREIGN KEY (`id_cliente`) REFERENCES `Clientes` (`id`);
 
