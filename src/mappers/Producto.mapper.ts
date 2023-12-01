@@ -68,6 +68,7 @@ export class ProductoMapper {
             const ruta = imagenEntidad.ruta;
             let buffer = await FS.readFile(ruta);
             imagenDto.base64 = buffer.toString();
+            imagenDto.ruta = imagenEntidad.ruta;
             return imagenDto;
         }));
         console.log(dto);
