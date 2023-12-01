@@ -7,6 +7,8 @@ import { CategoriaMapper } from "./categoria.mapper";
 import { IlustracionMapper } from "./ilustracion.mapper";
 import { MarcaMapper } from "./marca.mapper";
 import { ProveedorMapper } from "./proveedor.mapper";
+import { ImagenProductoDto } from "src/dtos/imagen-producto.dto";
+import { promises as FS } from 'fs';
 
 export class ProductoMapper {
 
@@ -22,7 +24,7 @@ export class ProductoMapper {
         return entidad;
     }
 
-    static entityToDto(entidad: Producto): ProductoDto {
+    static async entityToDto(entidad: Producto): Promise<ProductoDto> {
         const dto = new ProductoDto();
         dto.id = entidad.id;
         dto.nombre = entidad.nombre;
@@ -57,11 +59,23 @@ export class ProductoMapper {
             return inventarioDto;
         });
 
+        if(!entidad.imagenes) {
+            return dto;
+        }
+
+        dto.imagenes = await Promise.all(entidad.imagenes.map( async (imagenEntidad) => {
+            let imagenDto = new ImagenProductoDto();
+            const ruta = imagenEntidad.ruta;
+            let buffer = await FS.readFile(ruta);
+            imagenDto.base64 = buffer.toString();
+            return imagenDto;
+        }));
+        console.log(dto);
         return dto;
     }
 
-    static productoEntitiesToProductoDtoList(entidades: Producto[]): ProductoDto[] {
+    static async productoEntitiesToProductoDtoList(entidades: Producto[]): Promise<ProductoDto[]> {
         console.log(entidades);
-        return entidades.map((entidad) => this.entityToDto(entidad));
+        return Promise.all(entidades.map((entidad) => this.entityToDto(entidad)));
     }
 }

@@ -11,12 +11,17 @@ import { CategoriaMapper } from "src/mappers/categoria.mapper";
 import { IlustracionMapper } from "src/mappers/ilustracion.mapper";
 import { MarcaMapper } from "src/mappers/marca.mapper";
 import { ProveedorMapper } from "src/mappers/proveedor.mapper";
+import { RegistrarImagenProductoDto } from "src/dtos/registrar-imagen-producto.dto";
+import { v4 as uuidv4 } from 'uuid';
+import { ImagenProducto } from "src/entidades/productos-imagenes.entity";
+import { promises as FS } from 'fs';
 
 @Injectable()
 export class ProductosService {
-    
+        
     constructor(
-        @InjectRepository(Producto) private productoRepository: Repository<Producto>
+        @InjectRepository(Producto) private productoRepository: Repository<Producto>,
+        @InjectRepository(ImagenProducto) private imageProductoRepository: Repository<ImagenProducto>
     ) {}
     
     async findAll(page: number, limit: number): Promise<ProductoDto[]> {
@@ -29,7 +34,7 @@ export class ProductosService {
                 skip: (page - 1) * limit
             }
         );
-        return ProductoMapper.productoEntitiesToProductoDtoList(result);
+        return await ProductoMapper.productoEntitiesToProductoDtoList(result);
     }
     
     async findByCategoriaId(page: number, limit: number, categoriaId: number): Promise<ProductoDto[]> {
@@ -47,21 +52,21 @@ export class ProductosService {
                 skip: (page - 1) * limit
             }
         );
-            return ProductoMapper.productoEntitiesToProductoDtoList(result);
+            return await ProductoMapper.productoEntitiesToProductoDtoList(result);
         }
 
         //MC
 
-        async findAllByMarcaId(marcaId: number): Promise<Producto[]> {
-            return this.productoRepository.find({
-             // where: { marca: { id: marcaId } },
-             where:{
+    async findAllByMarcaId(marcaId: number): Promise<Producto[]> {
+        return this.productoRepository.find({
+            // where: { marca: { id: marcaId } },
+            where:{
                 marca: {
                     id: marcaId
                 }
-             }
-            });
-          }
+            }
+        });
+    }
 /*
         async findByMarcaId(page: number, limit: number, marcaID: number): Promise<ProductoDto[]> {
             const result = await this.productoRepository.find(
@@ -121,20 +126,21 @@ export class ProductosService {
                 categoria: true,
                 marca: true,
                 ilustracion: true,
-                proveedor: true
+                proveedor: true,
+                imagenes: true
             }
         });
         if (!encontrado) {
             throw Error("No se encontró el producto");
         }
         console.log(encontrado);
-        return ProductoMapper.entityToDto(encontrado);
+        return await ProductoMapper.entityToDto(encontrado);
     }
     
     async addProducto(createProductoDto: CreateProductoDto): Promise<ProductoDto> {
-        const producto: ProductoDto = ProductoMapper.createProductoDtoToEntity(createProductoDto);
+        const producto: Producto = ProductoMapper.createProductoDtoToEntity(createProductoDto);
         const resultado: Producto = await this.productoRepository.save(producto);
-        return ProductoMapper.entityToDto(resultado);
+        return await ProductoMapper.entityToDto(resultado);
     }
     
     async updateProducto(id: number, dto: UpdateProductoDto): Promise<ProductoDto> {
@@ -165,7 +171,7 @@ export class ProductosService {
             }
         });
         
-        return ProductoMapper.entityToDto(updatedEntity);
+        return await ProductoMapper.entityToDto(updatedEntity);
     }
     
     async deleteProducto(id: number): Promise<ProductoDto> {
@@ -178,6 +184,41 @@ export class ProductosService {
             throw Error("No se encontró el producto");
           }
           await this.productoRepository.remove(encontrado);
-          return ProductoMapper.entityToDto(encontrado);
+          return await ProductoMapper.entityToDto(encontrado);
+    }
+
+    async registrarImagen(registrarImagenDto: RegistrarImagenProductoDto) {
+        const idProducto = registrarImagenDto.idProducto;
+        const encontrado: Producto = await this.productoRepository.findOne({
+            where: {
+                id: idProducto
+            }
+        });
+        if (!encontrado) {
+            throw Error("No se encontró el producto");
+        }
+        const base64data = registrarImagenDto.base64;
+        const fileName = uuidv4();
+
+        const buffer = Buffer.from(base64data, 'base64');
+        let ruta = `./assets/files/${idProducto}/${fileName}`;
+        try {
+            try {
+                await FS.mkdir(`./assets/files/${idProducto}`);
+            } catch (error) {
+                console.log(error.message);
+            }
+            await FS.writeFile(ruta, base64data, { encoding: 'base64' });
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+
+        let image = new ImagenProducto();
+        image.nombre = fileName;
+        image.ruta = ruta;
+        image.producto = encontrado;
+
+        await this.imageProductoRepository.save(image);
     }
 }

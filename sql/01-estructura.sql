@@ -158,6 +158,15 @@ CREATE TABLE IF NOT EXISTS RegistroCarrito (
   cantidad integer
 );
 
+CREATE TABLE IF NOT EXISTS ImagenesProductos (
+  id integer PRIMARY KEY AUTO_INCREMENT,
+  ruta varchar(1024),
+  nombre varchar(255),
+  id_producto integer
+);
+
+ALTER TABLE ImagenesProductos ADD FOREIGN KEY (id_producto) REFERENCES Productos (id);
+
 ALTER TABLE RegistroCarrito ADD FOREIGN KEY (id_cliente) REFERENCES Clientes (id);
 
 ALTER TABLE RegistroCarrito ADD FOREIGN KEY (id_producto) REFERENCES Productos (id);

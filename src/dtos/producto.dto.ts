@@ -5,6 +5,7 @@ import { CategoriaDto } from "./categoria.dto";
 import { IlustracionDto } from "./ilustracion.dto";
 import { MarcaDto } from "./marca.dto";
 import { ProveedorDto } from "./proveedor.dto";
+import { ImagenProductoDto } from "./imagen-producto.dto";
 
 export class ProductoDto {
 
@@ -34,4 +35,7 @@ export class ProductoDto {
 
     @ApiProperty({ description: "Inventario del producto", type: Inventario, isArray: true })
     inventarios: InventarioDto[];
+
+    @ApiProperty({ description: "Imagenes del producto", type: ImagenProductoDto, isArray: true })
+    imagenes: ImagenProductoDto[];
 }

@@ -29,6 +29,7 @@ import { MarcasService } from './services/marcas.service';
 import { RegistroCarritoController } from './controllers/registro-carrito.controller';
 import { RegistroCarritoService } from './services/registro-carrito.service';
 import { RegistroCarrito } from './entidades/registro-carrito.entity';
+import { ImagenProducto } from './entidades/productos-imagenes.entity';
 
 @Module({
   imports: [
@@ -56,7 +57,8 @@ import { RegistroCarrito } from './entidades/registro-carrito.entity';
         Cliente,
         Artista,
         Inventario,
-        RegistroCarrito
+        RegistroCarrito,
+        ImagenProducto
       ]
     }),
     TypeOrmModule.forFeature([
@@ -65,7 +67,8 @@ import { RegistroCarrito } from './entidades/registro-carrito.entity';
       Artista,
       Inventario,
       Marca,
-      RegistroCarrito
+      RegistroCarrito,
+      ImagenProducto
     ])
   ],
   controllers: [

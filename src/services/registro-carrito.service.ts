@@ -33,7 +33,7 @@ export class RegistroCarritoService {
             throw Error("Cliente no registra elementos en el carrito");
         }
         
-        return RegistroCarritoMapper.entitiesToDto(results);
+        return await RegistroCarritoMapper.entitiesToDto(results);
     }
 
     async add(dto: AddProductoCarritoDto): Promise<RegistroCarritoDto[]> {
@@ -90,7 +90,7 @@ export class RegistroCarritoService {
                     }
                 }
             })
-            return RegistroCarritoMapper.entitiesToDto(carrito);
+            return await RegistroCarritoMapper.entitiesToDto(carrito);
         }
         let nuevo: RegistroCarrito = new RegistroCarrito();
         nuevo.cantidad = dto.cantidad;
@@ -106,6 +106,6 @@ export class RegistroCarritoService {
                 }
             }
         })
-        return RegistroCarritoMapper.entitiesToDto(carrito);
+        return await RegistroCarritoMapper.entitiesToDto(carrito);
     }
 }

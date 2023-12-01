@@ -5,7 +5,7 @@ import { ClienteMapper } from "./cliente.mapper";
 
 export class RegistroCarritoMapper {
 
-    static entityToDto(entity: RegistroCarrito): RegistroCarritoDto {
+    static async entityToDto(entity: RegistroCarrito): Promise<RegistroCarritoDto> {
         let dto: RegistroCarritoDto = new RegistroCarritoDto();
         dto.id = entity.id;
         dto.cantidad = entity.cantidad;
@@ -16,15 +16,15 @@ export class RegistroCarritoMapper {
         }
 
         if(entity.producto) {
-            dto.producto = ProductoMapper.entityToDto(entity.producto);
+            dto.producto = await ProductoMapper.entityToDto(entity.producto);
         }
         return dto;
     }
 
-    static entitiesToDto(entities: RegistroCarrito[]): RegistroCarritoDto[] {
-        return entities.map((entity) => {
-            return this.entityToDto(entity);
-        });
+    static async entitiesToDto(entities: RegistroCarrito[]): Promise<RegistroCarritoDto[]> {
+        return Promise.all(entities.map(async (entity) => {
+            return await this.entityToDto(entity);
+        }));
     }
 
 }
