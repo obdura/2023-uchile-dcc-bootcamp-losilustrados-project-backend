@@ -4,6 +4,8 @@ import { Marca } from "./marca.entity";
 import { Ilustracion } from "./ilustracion.entity";
 import { Proveedor } from "./proveedores.entity";
 import { Inventario } from "./inventario.entity";
+import { RegistroCarrito } from "./registro-carrito.entity";
+import { ImagenProducto } from "./productos-imagenes.entity";
 
 @Entity({ name: 'Productos' })
 export class Producto {
@@ -41,5 +43,11 @@ export class Producto {
 
    // @ManyToOne(() => Marca, marca => marca.productos)
     //marca: Marca;
+
+    @OneToMany(() => RegistroCarrito, (registroCarrito) => registroCarrito.producto)
+    registrosCarrito: RegistroCarrito[];
+
+    @OneToMany(() => ImagenProducto, (imagen) => imagen.producto)
+    imagenes: ImagenProducto[];
 
 }

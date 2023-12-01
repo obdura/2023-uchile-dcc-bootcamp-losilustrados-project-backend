@@ -2,6 +2,7 @@ import { BadRequestException, Body, Controller, DefaultValuePipe, Delete, Get, N
 import { ApiBody, ApiExcludeEndpoint, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateProductoDto } from 'src/dtos/create-producto.dto';
 import { ProductoDto } from 'src/dtos/producto.dto';
+import { RegistrarImagenProductoDto } from 'src/dtos/registrar-imagen-producto.dto';
 import { UpdateProductoDto } from 'src/dtos/update-producto.dto';
 import { ProductosService } from 'src/services/productos.service';
 
@@ -99,7 +100,7 @@ export class ProductosController {
         // TODO
     }
 
-    @Post("/add")
+    @Post()
     async addProducto(@Body() createProductoDto: CreateProductoDto) {
         try {
             const resultado: ProductoDto = await this.productoService.addProducto(createProductoDto);
@@ -119,7 +120,6 @@ export class ProductosController {
             const resultado = await this.productoService.findProducto(id);
             return resultado;
         } catch (error) {
-            console.log(error);
             throw new NotFoundException(error.message);
         }
     }
@@ -149,6 +149,15 @@ export class ProductosController {
             return resultado;
         } catch (error) {
             throw new NotFoundException(error.message);
+        }
+    }
+
+    @Post("/imagen")
+    async registrarImagen(@Body() registrarImagenDto: RegistrarImagenProductoDto) {
+        try {
+            this.productoService.registrarImagen(registrarImagenDto);
+        } catch (error) {
+            throw new BadRequestException(error.message);
         }
     }
 }
