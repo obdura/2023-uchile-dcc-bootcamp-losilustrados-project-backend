@@ -1,0 +1,34 @@
+# https://gist.github.com/danielwetan/4f4db933531db5dd1af2e69ec8d54d8a
+name: publish
+
+on:
+  push:
+    branches: [ "dev" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy using ssh
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd ~/los-ilustrados/neotaller/backend-dev/2023-uchile-dcc-bootcamp-losilustrados-project-backend
+          git pull origin dev
+          git checkout dev
+          cat > .env << EOF
+          MYSQL_TYPE=${{ secrets.MYSQL_DB_TYPE }}
+          MYSQL_HOST=${{ secrets.MYSQL_DB_HOST }}
+          MYSQL_PORT=${{ secrets.MYSQL_DB_PORT }}
+          MYSQL_USER=${{ secrets.MYSQL_DB_USER }}
+          MYSQL_PASSWORD=${{ secrets.MYSQL_DB_PASS }}
+          MYSQL_DATABASE=${{ secrets.MYSQL_DB_DB }}
+          EOF
+          docker rm container neotaller-mysql-server
+          docker rm container neotaller-backend
+          docker compose --env-file .env up -d --build

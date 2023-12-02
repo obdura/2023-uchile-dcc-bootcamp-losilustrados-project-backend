@@ -1,5 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsInt, MaxLength } from "class-validator";
+import { Categoria } from "src/entidades/categoria.entity";
+import { Ilustracion } from "src/entidades/ilustracion.entity";
+import { Marca } from "src/entidades/marca.entity";
+import { Proveedor } from "src/entidades/proveedores.entity";
 
 export class CreateProductoDto {
 
@@ -18,18 +22,14 @@ export class CreateProductoDto {
     precio: number;
 
     @ApiProperty({ example: "1", description: "Id de la categoría del producto"})
-    @IsInt()
-    idCategoria: number;
+    categoria: Categoria;
 
     @ApiProperty({ example: "1", description: "Id de la marca del producto"})
-    @IsInt()
-    idMarca: number;
+    marca: Marca;
 
     @ApiProperty({ example: "1", description: "Id de la ilustración del producto"})
-    @IsInt()
-    idIlustracion: number;
+    ilustracion: Ilustracion;
 
     @ApiProperty({ example: "1", description: "Id del proveedor del producto"})
-    @IsInt()
-    idProveedor: number;
+    proveedor: Proveedor;
 }

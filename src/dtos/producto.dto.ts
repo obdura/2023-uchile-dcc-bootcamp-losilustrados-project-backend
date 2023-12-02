@@ -1,6 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Inventario } from "src/entidades/inventario.entity";
 import { InventarioDto } from "./inventario.dto";
+import { CategoriaDto } from "./categoria.dto";
+import { IlustracionDto } from "./ilustracion.dto";
+import { MarcaDto } from "./marca.dto";
+import { ProveedorDto } from "./proveedor.dto";
+import { ImagenProductoDto } from "./imagen-producto.dto";
 
 export class ProductoDto {
 
@@ -13,21 +18,24 @@ export class ProductoDto {
     @ApiProperty({ description: "Descripcion del producto" })
     descripcion: string;
     
-    @ApiProperty({ description: "Id de la categoría del producto" })
-    idCategoria: number;
+    @ApiProperty({ description: "Categoría del producto", type: CategoriaDto })
+    categoria: CategoriaDto;
     
-    @ApiProperty({ description: "Id de la ilustración del producto" })
-    idIlustracion: number;
+    @ApiProperty({ description: "Ilustración del producto", type: IlustracionDto })
+    ilustracion: IlustracionDto;
     
-    @ApiProperty({ description: "Id de la marca del producto" })
-    idMarca: number;
+    @ApiProperty({ description: "La marca del producto", type: MarcaDto })
+    marca: MarcaDto;
     
-    @ApiProperty({ description: "Id del proveedor del producto" })
-    idProveedor: number;
+    @ApiProperty({ description: "Proveedor del producto", type: ProveedorDto })
+    proveedor: ProveedorDto;
     
     @ApiProperty({ description: "Precio del producto" })
     precio: number;
 
-    @ApiProperty({ description: "Inventario del producto" })
-    inventario: InventarioDto[];
+    @ApiProperty({ description: "Inventario del producto", type: Inventario, isArray: true })
+    inventarios: InventarioDto[];
+
+    @ApiProperty({ description: "Imagenes del producto", type: ImagenProductoDto, isArray: true })
+    imagenes: ImagenProductoDto[];
 }

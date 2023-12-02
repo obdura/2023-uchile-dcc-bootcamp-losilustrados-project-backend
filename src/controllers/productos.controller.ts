@@ -2,6 +2,7 @@ import { BadRequestException, Body, Controller, DefaultValuePipe, Delete, Get, N
 import { ApiBody, ApiExcludeEndpoint, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateProductoDto } from 'src/dtos/create-producto.dto';
 import { ProductoDto } from 'src/dtos/producto.dto';
+import { RegistrarImagenProductoDto } from 'src/dtos/registrar-imagen-producto.dto';
 import { UpdateProductoDto } from 'src/dtos/update-producto.dto';
 import { ProductosService } from 'src/services/productos.service';
 
@@ -49,22 +50,22 @@ export class ProductosController {
 
 
     @Get('/marcas/:marcaId')
-    async findAllByMarcaId(@Param('marcaId') marcaId: number): Promise<ProductoDto[]> {
-      const productos = await this.productoService.findAllByMarcaId(marcaId);
-      return productos.map(producto => {
-        let productoDto:ProductoDto=new ProductoDto();
-        productoDto.id= producto.id;
-        productoDto.nombre= producto.nombre;
-        productoDto.descripcion= producto.descripcion;
-        productoDto.idCategoria= producto.idCategoria;
-        productoDto.idIlustracion= producto.idIlustracion;
-        productoDto.idMarca= producto.idMarca;
-        productoDto.idProveedor= producto.idProveedor;
-        productoDto.precio= producto.precio;
-        productoDto.inventario= producto.inventario;
-        return productoDto;
-        // Mapea otras propiedades aquí
-      });
+    async findAllByMarcaId(@Param('marcaId') marcaId: number) {
+      //const productos = await this.productoService.findAllByMarcaId(marcaId);
+      //return productos.map(producto => {
+      //  let productoDto:ProductoDto=new ProductoDto();
+      //  productoDto.id= producto.id;
+      //  productoDto.nombre= producto.nombre;
+      //  productoDto.descripcion= producto.descripcion;
+      //  productoDto.idCategoria= producto.idCategoria;
+      //  productoDto.idIlustracion= producto.idIlustracion;
+      //  productoDto.idMarca= producto.idMarca;
+      //  productoDto.idProveedor= producto.idProveedor;
+      //  productoDto.precio= producto.precio;
+      //  productoDto.inventario= producto.inventarios;
+      //  return productoDto;
+      //  // Mapea otras propiedades aquí
+      //});
     }
 
     //MC
@@ -99,7 +100,7 @@ export class ProductosController {
         // TODO
     }
 
-    @Post("/add")
+    @Post()
     async addProducto(@Body() createProductoDto: CreateProductoDto) {
         try {
             const resultado: ProductoDto = await this.productoService.addProducto(createProductoDto);
@@ -138,7 +139,7 @@ export class ProductosController {
     }
 
     @Delete(":id")
-    @ApiExcludeEndpoint()  // al eliminar un producto colisiona con los registros de otras tablas que lo referencian. TODO!!
+    //@ApiExcludeEndpoint()  // al eliminar un producto colisiona con los registros de otras tablas que lo referencian. TODO!!
     @ApiParam({ name: "id", required: true, description: "Id del producto a eliminar" })
     @ApiOkResponse({ description: "Producto eliminado", type: ProductoDto})
     @ApiNotFoundResponse({ description: "No se encontró el producto" })
@@ -148,6 +149,15 @@ export class ProductosController {
             return resultado;
         } catch (error) {
             throw new NotFoundException(error.message);
+        }
+    }
+
+    @Post("/imagen")
+    async registrarImagen(@Body() registrarImagenDto: RegistrarImagenProductoDto) {
+        try {
+            this.productoService.registrarImagen(registrarImagenDto);
+        } catch (error) {
+            throw new BadRequestException(error.message);
         }
     }
 }

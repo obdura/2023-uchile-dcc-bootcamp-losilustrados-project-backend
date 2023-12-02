@@ -1,4 +1,5 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { Entity, PrimaryColumn, Column, OneToMany, JoinColumn } from "typeorm";
+import { RegistroCarrito } from "./registro-carrito.entity";
 
 @Entity({ name: "Clientes" })
 export class Cliente {
@@ -11,4 +12,7 @@ export class Cliente {
 
     @Column()
     password: string;
+
+    @OneToMany(() => RegistroCarrito, (registroCarrito) => registroCarrito.cliente)
+    registrosCarrito: RegistroCarrito[];
 }

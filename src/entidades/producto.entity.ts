@@ -4,6 +4,8 @@ import { Marca } from "./marca.entity";
 import { Ilustracion } from "./ilustracion.entity";
 import { Proveedor } from "./proveedores.entity";
 import { Inventario } from "./inventario.entity";
+import { RegistroCarrito } from "./registro-carrito.entity";
+import { ImagenProducto } from "./productos-imagenes.entity";
 
 @Entity({ name: 'Productos' })
 export class Producto {
@@ -14,21 +16,21 @@ export class Producto {
     @Column()
     precio: number;
 
-    @ManyToOne(() => Categoria)
+    @ManyToOne(() => Categoria, (categoria) => categoria.productos)
     @JoinColumn({ name: "id_categoria" })
-    idCategoria: number;
+    categoria: Categoria;
 
-    //@ManyToOne(() => Marca)
-    @Column({ name: "id_marca" })
-    idMarca: number;
+    @ManyToOne(() => Marca, (marca) => marca.productos)
+    @JoinColumn({ name: "id_marca" })
+    marca: Marca;
 
     @ManyToOne(() => Ilustracion)
     @JoinColumn({ name: "id_ilustracion" })
-    idIlustracion: number;
+    ilustracion: Ilustracion;
 
-    @ManyToOne(() => Proveedor)
+    @ManyToOne(() => Proveedor, (proveedor) => proveedor.productos)
     @JoinColumn({ name: "id_proveedor" })
-    idProveedor: number;
+    proveedor: Proveedor;
 
     @Column()
     descripcion: string;
@@ -36,11 +38,16 @@ export class Producto {
     @Column()
     nombre: string;
 
-
-    @OneToMany(() => Inventario, (entidad) => entidad.idProducto)
-    inventario: Inventario[];
+    @OneToMany(() => Inventario, (inventario) => inventario.producto)
+    inventarios: Inventario[];
 
    // @ManyToOne(() => Marca, marca => marca.productos)
     //marca: Marca;
+
+    @OneToMany(() => RegistroCarrito, (registroCarrito) => registroCarrito.producto)
+    registrosCarrito: RegistroCarrito[];
+
+    @OneToMany(() => ImagenProducto, (imagen) => imagen.producto)
+    imagenes: ImagenProducto[];
 
 }

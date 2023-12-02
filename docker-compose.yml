@@ -1,0 +1,47 @@
+version: '3.8'
+name: neotaller
+
+services:
+  mysql-container:
+    image: neotaller-mysql-server
+    container_name: neotaller-mysql-server
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/db.Dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - db-data:/var/lib/mysql
+
+  backend-container:
+    image: neotaller-backend
+    container_name: neotaller-backend
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/app.Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      MYSQL_TYPE: ${MYSQL_TYPE}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    depends_on:
+      - mysql-container
+  
+volumes:
+  db-data:
+
+networks:
+  neotaller-network:
+    name: neotaller-network
+
+
+
