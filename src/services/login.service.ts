@@ -11,7 +11,7 @@ export class LoginService {
         private jwtService: JwtService
     ) { }
 
-    async login(username, password) {
+    async login(username: string, password: string) {
         const cliente: Cliente = await this.clienteService.findOne(username);
         if(cliente.password !== password) {
             throw new UnauthorizedException();
