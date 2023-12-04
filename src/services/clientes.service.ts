@@ -8,7 +8,6 @@ import { Repository } from "typeorm";
 
 @Injectable()
 export class ClientesService {
-    
     constructor(
         @InjectRepository(Cliente) private clienteRepository: Repository<Cliente>
     ) {}
@@ -60,5 +59,18 @@ export class ClientesService {
             return dto;
         });
     }
+    
+    async findOne(username: string) {
+        const cliente: Cliente = await this.clienteRepository.findOne({
+            where: {
+                email: username
+            }
+        });
+        if(!cliente) {
+            throw new Error("Cliente no encontrado.");
+        }
+        return cliente;
+    }
+    
 
 }
