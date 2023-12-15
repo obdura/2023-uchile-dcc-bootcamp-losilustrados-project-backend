@@ -18,24 +18,33 @@ export class ProductoDto {
     @ApiProperty({ description: "Descripcion del producto" })
     descripcion: string;
     
-    @ApiProperty({ description: "Categoría del producto", type: CategoriaDto })
-    categoria: CategoriaDto;
+    // @ApiProperty({ description: "Categoría del producto", type: CategoriaDto })
+    // categoria: CategoriaDto;
     
-    @ApiProperty({ description: "Ilustración del producto", type: IlustracionDto })
-    ilustracion: IlustracionDto;
+    // @ApiProperty({ description: "Ilustración del producto", type: IlustracionDto })
+    // ilustracion: IlustracionDto;
     
-    @ApiProperty({ description: "La marca del producto", type: MarcaDto })
-    marca: MarcaDto;
+    // @ApiProperty({ description: "La marca del producto", type: MarcaDto })
+    // marca: MarcaDto;
     
-    @ApiProperty({ description: "Proveedor del producto", type: ProveedorDto })
-    proveedor: ProveedorDto;
+    // @ApiProperty({ description: "Proveedor del producto", type: ProveedorDto })
+    // proveedor: ProveedorDto;
     
+    @ApiProperty({ description: "Nombre de la categoría del producto", type: String})
+    categoria: string;
+
+    @ApiProperty({ description: "Nombre de la marca del producto", type: String})
+    marca: string;
+
+    @ApiProperty({ description: "Nombre del proveedor del producto", type: String })
+    proveedor: string;
+
     @ApiProperty({ description: "Precio del producto" })
     precio: number;
 
-    @ApiProperty({ description: "Inventario del producto", type: Inventario, isArray: true })
-    inventarios: InventarioDto[];
+    // @ApiProperty({ description: "Inventario del producto", type: Inventario, isArray: true })
+    // inventarios: InventarioDto[];
 
-    @ApiProperty({ description: "Imagenes del producto", type: ImagenProductoDto, isArray: true })
-    imagenes: ImagenProductoDto[];
+    // @ApiProperty({ description: "Imagenes del producto", type: ImagenProductoDto, isArray: true })
+    // imagenes: ImagenProductoDto[];
 }

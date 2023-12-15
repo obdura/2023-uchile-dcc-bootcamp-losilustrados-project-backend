@@ -16,11 +16,15 @@ export class ProductoMapper {
         const entidad = new Producto();
         entidad.nombre = dto.nombre;
         entidad.descripcion = dto.descripcion;
-        entidad.categoria = dto.categoria;
-        entidad.ilustracion = dto.ilustracion;
-        entidad.marca = dto.marca;
-        entidad.proveedor = dto.proveedor
+        // entidad.categoria = dto.categoria;
+        // entidad.ilustracion = dto.ilustracion;
+        // entidad.marca = dto.marca;
+        // entidad.proveedor = dto.proveedor
         entidad.precio = dto.precio;
+        entidad.nombreCategoria = dto.categoria;
+        entidad.nombreMarca = dto.marca;
+        entidad.nombreProveedor = dto.proveedor;
+        
         return entidad;
     }
 
@@ -31,46 +35,50 @@ export class ProductoMapper {
         dto.descripcion = entidad.descripcion;
         dto.precio = entidad.precio;
 
-        if(entidad.categoria) {
-            dto.categoria = CategoriaMapper.entityToDto(entidad.categoria);
-        }
+        dto.categoria = entidad.nombreCategoria;
+        dto.marca = entidad.nombreMarca;
+        dto.proveedor = entidad.nombreProveedor;
 
-        if(entidad.ilustracion) {
-            dto.ilustracion = IlustracionMapper.entityToDto(entidad.ilustracion);
-        }
+        // if(entidad.categoria) {
+        //     dto.categoria = CategoriaMapper.entityToDto(entidad.categoria);
+        // }
 
-        if(entidad.marca) {
-            dto.marca = MarcaMapper.entityToDto(entidad.marca);
-        }
+        // if(entidad.ilustracion) {
+        //     dto.ilustracion = IlustracionMapper.entityToDto(entidad.ilustracion);
+        // }
 
-        if(entidad.proveedor) {
-            dto.proveedor = ProveedorMapper.entityToDto(entidad.proveedor);
-        }
+        // if(entidad.marca) {
+        //     dto.marca = MarcaMapper.entityToDto(entidad.marca);
+        // }
 
-        if(!entidad.inventarios) {
-            return dto;
-        }
+        // if(entidad.proveedor) {
+        //     dto.proveedor = ProveedorMapper.entityToDto(entidad.proveedor);
+        // }
 
-        dto.inventarios = entidad.inventarios.map((inventarioEntidad) => {
-            let inventarioDto = new InventarioDto();
-            inventarioDto.id = inventarioEntidad.id;
-            inventarioDto.talla = inventarioEntidad.talla;
-            inventarioDto.cantidad = inventarioEntidad.cantidad;
-            return inventarioDto;
-        });
+        // if(!entidad.inventarios) {
+        //     return dto;
+        // }
 
-        if(!entidad.imagenes) {
-            return dto;
-        }
+        // dto.inventarios = entidad.inventarios.map((inventarioEntidad) => {
+        //     let inventarioDto = new InventarioDto();
+        //     inventarioDto.id = inventarioEntidad.id;
+        //     inventarioDto.talla = inventarioEntidad.talla;
+        //     inventarioDto.cantidad = inventarioEntidad.cantidad;
+        //     return inventarioDto;
+        // });
 
-        dto.imagenes = await Promise.all(entidad.imagenes.map( async (imagenEntidad) => {
-            let imagenDto = new ImagenProductoDto();
-            const ruta = imagenEntidad.ruta;
-            let buffer = await FS.readFile(ruta);
-            imagenDto.base64 = buffer.toString();
-            imagenDto.ruta = imagenEntidad.ruta;
-            return imagenDto;
-        }));
+        // if(!entidad.imagenes) {
+        //     return dto;
+        // }
+
+        // dto.imagenes = await Promise.all(entidad.imagenes.map( async (imagenEntidad) => {
+        //     let imagenDto = new ImagenProductoDto();
+        //     const ruta = imagenEntidad.ruta;
+        //     let buffer = await FS.readFile(ruta);
+        //     imagenDto.base64 = buffer.toString();
+        //     imagenDto.ruta = imagenEntidad.ruta;
+        //     return imagenDto;
+        // }));
         console.log(dto);
         return dto;
     }

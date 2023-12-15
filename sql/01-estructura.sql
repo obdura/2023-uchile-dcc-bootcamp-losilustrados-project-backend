@@ -10,7 +10,10 @@ CREATE TABLE IF NOT EXISTS `Productos` (
   `id_ilustracion` integer,
   `id_proveedor` integer,
   `descripcion` varchar(1000),
-  `nombre` varchar(100)
+  `nombre` varchar(100),
+  nombreCategoria varchar(255),
+  nombreMarca varchar(255),
+  nombreProveedor varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `Categorias` (
