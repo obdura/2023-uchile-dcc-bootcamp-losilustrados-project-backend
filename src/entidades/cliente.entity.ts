@@ -1,10 +1,10 @@
-import { Entity, PrimaryColumn, Column, OneToMany, JoinColumn } from "typeorm";
+import { Entity, PrimaryColumn, Column, OneToMany, JoinColumn, PrimaryGeneratedColumn } from "typeorm";
 import { RegistroCarrito } from "./registro-carrito.entity";
 
 @Entity({ name: "Clientes" })
 export class Cliente {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
@@ -15,4 +15,37 @@ export class Cliente {
 
     @OneToMany(() => RegistroCarrito, (registroCarrito) => registroCarrito.cliente)
     registrosCarrito: RegistroCarrito[];
+    
+    @Column()
+    nombres: string;
+
+    @Column()
+    apellidos: string;
+    
+    @Column()
+    telefono: string;
+    
+    @Column()
+    direccionDespacho: string;
+    
+    @Column()
+    numeroDepartamentoDespacho?: number;
+    
+    @Column()
+    comunaDespacho: string;
+    
+    @Column()
+    regionDespacho: string;
+
+    @Column()
+    direccionFacturacion: string;
+    
+    @Column()
+    numeroDepartamentoFacturacion?: number;
+
+    @Column()
+    comunaFacturacion: string;
+
+    @Column()
+    regionFacturacion: string;
 }

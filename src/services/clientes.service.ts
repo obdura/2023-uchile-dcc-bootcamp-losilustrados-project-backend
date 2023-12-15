@@ -30,6 +30,17 @@ export class ClientesService {
         let cliente = new Cliente();
         cliente.email = createClienteDto.email;
         cliente.password = createClienteDto.password;
+        cliente.nombres = createClienteDto.nombres;
+        cliente.apellidos = createClienteDto.apellidos;
+        cliente.telefono = createClienteDto.telefono;
+        cliente.direccionDespacho = createClienteDto.direccionDespacho;
+        cliente.numeroDepartamentoDespacho = createClienteDto.numeroDepartamentoDespacho;
+        cliente.comunaDespacho = createClienteDto.comunaDespacho;
+        cliente.regionDespacho = createClienteDto.regionDespacho;
+        cliente.direccionFacturacion = createClienteDto.direccionFacturacion;
+        cliente.numeroDepartamentoFacturacion = createClienteDto.numeroDepartamentoFacturacion;
+        cliente.comunaFacturacion = createClienteDto.comunaFacturacion;
+        cliente.regionFacturacion = createClienteDto.regionFacturacion;
         
         const resultado: Cliente = await this.clienteRepository.save(cliente);
 
