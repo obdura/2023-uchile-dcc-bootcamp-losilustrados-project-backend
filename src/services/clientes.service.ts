@@ -8,7 +8,6 @@ import { Repository } from "typeorm";
 
 @Injectable()
 export class ClientesService {
-    
     constructor(
         @InjectRepository(Cliente) private clienteRepository: Repository<Cliente>
     ) {}
@@ -31,6 +30,17 @@ export class ClientesService {
         let cliente = new Cliente();
         cliente.email = createClienteDto.email;
         cliente.password = createClienteDto.password;
+        cliente.nombres = createClienteDto.nombres;
+        cliente.apellidos = createClienteDto.apellidos;
+        cliente.telefono = createClienteDto.telefono;
+        cliente.direccionDespacho = createClienteDto.direccionDespacho;
+        cliente.numeroDepartamentoDespacho = createClienteDto.numeroDepartamentoDespacho;
+        cliente.comunaDespacho = createClienteDto.comunaDespacho;
+        cliente.regionDespacho = createClienteDto.regionDespacho;
+        cliente.direccionFacturacion = createClienteDto.direccionFacturacion;
+        cliente.numeroDepartamentoFacturacion = createClienteDto.numeroDepartamentoFacturacion;
+        cliente.comunaFacturacion = createClienteDto.comunaFacturacion;
+        cliente.regionFacturacion = createClienteDto.regionFacturacion;
         
         const resultado: Cliente = await this.clienteRepository.save(cliente);
 
@@ -60,5 +70,18 @@ export class ClientesService {
             return dto;
         });
     }
+    
+    async findOne(username: string) {
+        const cliente: Cliente = await this.clienteRepository.findOne({
+            where: {
+                email: username
+            }
+        });
+        if(!cliente) {
+            throw new Error("Cliente no encontrado.");
+        }
+        return cliente;
+    }
+    
 
 }

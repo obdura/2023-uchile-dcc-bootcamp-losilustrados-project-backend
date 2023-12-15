@@ -30,6 +30,9 @@ import { RegistroCarritoController } from './controllers/registro-carrito.contro
 import { RegistroCarritoService } from './services/registro-carrito.service';
 import { RegistroCarrito } from './entidades/registro-carrito.entity';
 import { ImagenProducto } from './entidades/productos-imagenes.entity';
+import { JwtModule } from '@nestjs/jwt';
+import { LoginController } from './controllers/login.controller';
+import { LoginService } from './services/login.service';
 
 @Module({
   imports: [
@@ -69,7 +72,12 @@ import { ImagenProducto } from './entidades/productos-imagenes.entity';
       Marca,
       RegistroCarrito,
       ImagenProducto
-    ])
+    ]),
+    JwtModule.register({
+      global: true,
+      secret: "CLAVE123",
+      signOptions: { expiresIn: '43200s' }
+    })
   ],
   controllers: [
     ProductosController,
@@ -77,7 +85,8 @@ import { ImagenProducto } from './entidades/productos-imagenes.entity';
     ArtistasController,
     ProveedoresController,
     MarcasController,
-    RegistroCarritoController
+    RegistroCarritoController,
+    LoginController
   ],
   providers: [
     AppService,
@@ -85,7 +94,8 @@ import { ImagenProducto } from './entidades/productos-imagenes.entity';
     ClientesService,
     ArtistasService,
     MarcasService,
-    RegistroCarritoService
+    RegistroCarritoService,
+    LoginService
   ],
 })
 export class AppModule {}
