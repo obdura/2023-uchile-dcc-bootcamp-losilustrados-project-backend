@@ -140,6 +140,42 @@ export class ProductosService {
     async addProducto(createProductoDto: CreateProductoDto): Promise<ProductoDto> {
         const producto: Producto = ProductoMapper.createProductoDtoToEntity(createProductoDto);
         const resultado: Producto = await this.productoRepository.save(producto);
+
+        const idProducto = resultado.id;
+
+        const base64data1 = createProductoDto.img1base64;
+        const fileName1 = uuidv4();
+
+        const base64data2 = createProductoDto.img2base64;
+        const fileName2 = uuidv4();
+
+        const base64data3 = createProductoDto.img3base64;
+        const fileName3 = uuidv4();
+
+        const base64Contents = [base64data1, base64data2, base64data3];
+        const fileNames = [fileName1, fileName2, fileName3];
+
+        for (let i = 0; i < 3; i++) {
+            const buffer = Buffer.from(base64Contents[i], 'base64');
+            let ruta = `./assets/files/${idProducto.toString()}/${fileNames[i]}.png`;
+            try {
+                try {
+                    await FS.mkdir(`./assets/files/${idProducto.toString()}`);
+                } catch (error) {
+                    console.log(error.message);
+                }
+                console.log(base64Contents[i]);
+                await FS.writeFile(ruta, base64Contents[i], { encoding: 'base64' });
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
+            let image = new ImagenProducto();
+            image.nombre = fileNames[i];
+            image.ruta = ruta;
+            image.producto = resultado;
+            await this.imageProductoRepository.save(image);
+        }
         return await ProductoMapper.entityToDto(resultado);
     }
     
