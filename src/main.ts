@@ -7,6 +7,7 @@ import { ContactoModule } from './contacto/contacto.module';
 import { LoginModule } from './login/login.module';
 import { PasarelaModule } from './pasarela/pasarela.module';
 import { IllustratorModule } from './illustrator/illustrator.module';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,6 +15,9 @@ async function bootstrap() {
   app.enableCors({
     origin: true
   });
+
+  app.use(bodyParser.json({limit: '50mb'}));
+  app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
   const config = new DocumentBuilder()
     .setTitle('Los Ilustrados API Doc')
