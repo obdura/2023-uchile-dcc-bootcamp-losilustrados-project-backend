@@ -122,11 +122,11 @@ export class ProductosService {
                 id: id
             },
             relations: {
-                inventarios: true,
-                categoria: true,
-                marca: true,
-                ilustracion: true,
-                proveedor: true,
+            //     inventarios: true,
+            //     categoria: true,
+            //     marca: true,
+            //     ilustracion: true,
+            //     proveedor: true,
                 imagenes: true
             }
         });
@@ -143,17 +143,31 @@ export class ProductosService {
 
         const idProducto = resultado.id;
 
+        const base64Contents = [];
+        const fileNames = [];
+
         const base64data1 = createProductoDto.img1base64;
         const fileName1 = uuidv4();
+        if ( base64data1 != "") {
+            base64Contents.push(base64data1);
+            fileNames.push(fileName1);
+        }
 
         const base64data2 = createProductoDto.img2base64;
         const fileName2 = uuidv4();
+        if ( base64data2 != "") {
+            base64Contents.push(base64data2);
+            fileNames.push(fileName2);
+        }
 
         const base64data3 = createProductoDto.img3base64;
         const fileName3 = uuidv4();
-
-        const base64Contents = [base64data1, base64data2, base64data3];
-        const fileNames = [fileName1, fileName2, fileName3];
+        if ( base64data1 != "") {
+            base64Contents.push(base64data3);
+            fileNames.push(fileName3);
+        }
+        // const base64Contents = [base64data1, base64data2, base64data3];
+        // const fileNames = [fileName1, fileName2, fileName3];
 
         for (let i = 0; i < 3; i++) {
             const buffer = Buffer.from(base64Contents[i], 'base64');
