@@ -33,6 +33,8 @@ import { ImagenProducto } from './entidades/productos-imagenes.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { LoginController } from './controllers/login.controller';
 import { LoginService } from './services/login.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -77,6 +79,9 @@ import { LoginService } from './services/login.service';
       global: true,
       secret: "CLAVE123",
       signOptions: { expiresIn: '43200s' }
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "..", "assets/files"),
     })
   ],
   controllers: [

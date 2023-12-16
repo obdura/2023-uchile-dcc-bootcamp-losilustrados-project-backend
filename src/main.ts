@@ -8,6 +8,7 @@ import { LoginModule } from './login/login.module';
 import { PasarelaModule } from './pasarela/pasarela.module';
 import { IllustratorModule } from './illustrator/illustrator.module';
 import * as bodyParser from 'body-parser';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
