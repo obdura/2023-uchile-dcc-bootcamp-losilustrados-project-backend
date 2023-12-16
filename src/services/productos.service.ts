@@ -169,7 +169,7 @@ export class ProductosService {
         // const base64Contents = [base64data1, base64data2, base64data3];
         // const fileNames = [fileName1, fileName2, fileName3];
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < base64Contents.length; i++) {
             const buffer = Buffer.from(base64Contents[i], 'base64');
             let ruta = `./assets/files/${idProducto.toString()}/${fileNames[i]}.png`;
             try {
