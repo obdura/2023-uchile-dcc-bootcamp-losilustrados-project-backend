@@ -36,7 +36,7 @@ services:
     depends_on:
       - mysql-container
     volumes:
-      - assets-files:./assets/files
+      - assets-files:/app/assets/files
   
 volumes:
   db-data:
