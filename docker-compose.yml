@@ -35,9 +35,12 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     depends_on:
       - mysql-container
+    volumes:
+      - assets-files:./assets/files
   
 volumes:
   db-data:
+  assets-files:
 
 networks:
   neotaller-network:
