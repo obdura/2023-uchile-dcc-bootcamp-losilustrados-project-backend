@@ -171,7 +171,7 @@ export class ProductosService {
 
         for (let i = 0; i < base64Contents.length; i++) {
             const buffer = Buffer.from(base64Contents[i], 'base64');
-            let ruta = `./assets/files/${idProducto.toString()}/${fileNames[i]}.png`;
+            let ruta = `${idProducto.toString()}/${fileNames[i]}.png`;
             try {
                 try {
                     await FS.mkdir(`./assets/files/${idProducto.toString()}`);
