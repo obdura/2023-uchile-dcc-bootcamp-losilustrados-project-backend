@@ -30,6 +30,9 @@ export class ProductosService {
                 order: {
                     id: "ASC" // TODO: Recibir esto como query param.
                 },
+                relations: {
+                    imagenes: true
+                },
                 take: limit,
                 skip: (page - 1) * limit
             }
@@ -178,8 +181,7 @@ export class ProductosService {
                 } catch (error) {
                     console.log(error.message);
                 }
-                console.log(base64Contents[i]);
-                await FS.writeFile(ruta, base64Contents[i], { encoding: 'base64' });
+                await FS.writeFile('./assets/files/' + ruta, base64Contents[i], { encoding: 'base64' });
             } catch (error) {
                 console.log(error);
                 throw error;
