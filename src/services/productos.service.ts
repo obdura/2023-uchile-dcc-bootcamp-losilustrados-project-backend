@@ -165,7 +165,7 @@ export class ProductosService {
 
         const base64data3 = createProductoDto.img3base64;
         const fileName3 = uuidv4();
-        if ( base64data1 != "") {
+        if ( base64data3 != "") {
             base64Contents.push(base64data3);
             fileNames.push(fileName3);
         }
