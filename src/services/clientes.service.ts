@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ClienteDto } from "src/dtos/cliente.dto";
 import { CreateClienteDto } from "src/dtos/create-cliente.dto";
 import { Cliente } from "src/entidades/cliente.entity";
+import { Role } from "src/enum/role.enum";
 import { Repository } from "typeorm";
 
 
@@ -41,6 +42,7 @@ export class ClientesService {
         cliente.numeroDepartamentoFacturacion = createClienteDto.numeroDepartamentoFacturacion;
         cliente.comunaFacturacion = createClienteDto.comunaFacturacion;
         cliente.regionFacturacion = createClienteDto.regionFacturacion;
+        cliente.rol = Role.Cliente;
         
         const resultado: Cliente = await this.clienteRepository.save(cliente);
 

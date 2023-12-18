@@ -30,6 +30,9 @@ export class ProductosService {
                 order: {
                     id: "ASC" // TODO: Recibir esto como query param.
                 },
+                relations: {
+                    imagenes: true
+                },
                 take: limit,
                 skip: (page - 1) * limit
             }
@@ -162,7 +165,7 @@ export class ProductosService {
 
         const base64data3 = createProductoDto.img3base64;
         const fileName3 = uuidv4();
-        if ( base64data1 != "") {
+        if ( base64data3 != "") {
             base64Contents.push(base64data3);
             fileNames.push(fileName3);
         }
@@ -171,15 +174,14 @@ export class ProductosService {
 
         for (let i = 0; i < base64Contents.length; i++) {
             const buffer = Buffer.from(base64Contents[i], 'base64');
-            let ruta = `./assets/files/${idProducto.toString()}/${fileNames[i]}.png`;
+            let ruta = `${idProducto.toString()}/${fileNames[i]}.png`;
             try {
                 try {
                     await FS.mkdir(`./assets/files/${idProducto.toString()}`);
                 } catch (error) {
                     console.log(error.message);
                 }
-                console.log(base64Contents[i]);
-                await FS.writeFile(ruta, base64Contents[i], { encoding: 'base64' });
+                await FS.writeFile('./assets/files/' + ruta, base64Contents[i], { encoding: 'base64' });
             } catch (error) {
                 console.log(error);
                 throw error;

@@ -6,6 +6,9 @@ import { RegistrarImagenProductoDto } from 'src/dtos/registrar-imagen-producto.d
 import { UpdateProductoDto } from 'src/dtos/update-producto.dto';
 import { ProductosService } from 'src/services/productos.service';
 import { AuthenticationGuard } from 'src/guards/authentication.guard';
+import { Roles } from 'src/decorator/roles.decorator';
+import { Role } from 'src/enum/role.enum';
+import { RolesGuard } from 'src/guards/roles.guard';
 
 @ApiTags("Productos")
 @Controller("productos")
@@ -101,10 +104,12 @@ export class ProductosController {
         // TODO
     }
 
-    @UseGuards(AuthenticationGuard)
+    @Roles(Role.Admin)
+    @UseGuards(AuthenticationGuard, RolesGuard)
     @Post()
     @ApiHeader({ name: "Authentication", description: "Token de autenticación", required: true })
     async addProducto(@Headers("Authentication") token: string, @Body() createProductoDto: CreateProductoDto) {
+        console.log(token);
         try {
             const resultado: ProductoDto = await this.productoService.addProducto(createProductoDto);
             return resultado;

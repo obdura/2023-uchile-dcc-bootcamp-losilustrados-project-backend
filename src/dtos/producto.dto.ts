@@ -42,6 +42,14 @@ export class ProductoDto {
     @ApiProperty({ description: "Precio del producto" })
     precio: number;
 
+    @ApiProperty({ description: "Imagen 1 del producto" })
+    imagen1ruta: string
+
+    @ApiProperty({ description: "Imagen 2 del producto" })
+    imagen2ruta: string
+    
+    @ApiProperty({ description: "Imagen 3 del producto" })
+    imagen3ruta: string
     // @ApiProperty({ description: "Inventario del producto", type: Inventario, isArray: true })
     // inventarios: InventarioDto[];
 

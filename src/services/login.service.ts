@@ -45,6 +45,7 @@ export class LoginService {
             numeroDepartamentoFacturacion: cliente.numeroDepartamentoFacturacion,
             comunaFacturacion: cliente.comunaFacturacion,
             regionFacturacion: cliente.regionFacturacion,
+            rol: cliente.rol
         }
         return {
             access_token: await this.jwtService.signAsync(payload)

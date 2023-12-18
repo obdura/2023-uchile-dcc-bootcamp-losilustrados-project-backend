@@ -1,5 +1,6 @@
 import { Entity, PrimaryColumn, Column, OneToMany, JoinColumn, PrimaryGeneratedColumn } from "typeorm";
 import { RegistroCarrito } from "./registro-carrito.entity";
+import { Role } from "src/enum/role.enum";
 
 @Entity({ name: "Clientes" })
 export class Cliente {
@@ -48,4 +49,7 @@ export class Cliente {
 
     @Column()
     regionFacturacion: string;
+
+    @Column()
+    rol: Role;
 }

@@ -39,6 +39,16 @@ export class ProductoMapper {
         dto.marca = entidad.nombreMarca;
         dto.proveedor = entidad.nombreProveedor;
 
+        if(entidad.imagenes) {
+            try {
+                dto.imagen1ruta = entidad.imagenes[0].ruta;
+                dto.imagen2ruta = entidad.imagenes[1].ruta;
+                dto.imagen3ruta = entidad.imagenes[2].ruta;
+            } catch(error) {
+                console.log(error);
+            }
+        }
+
         // if(entidad.categoria) {
         //     dto.categoria = CategoriaMapper.entityToDto(entidad.categoria);
         // }
