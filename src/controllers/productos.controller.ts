@@ -109,6 +109,7 @@ export class ProductosController {
     @Post()
     @ApiHeader({ name: "Authentication", description: "Token de autenticación", required: true })
     async addProducto(@Headers("Authentication") token: string, @Body() createProductoDto: CreateProductoDto) {
+        console.log(token);
         try {
             const resultado: ProductoDto = await this.productoService.addProducto(createProductoDto);
             return resultado;
