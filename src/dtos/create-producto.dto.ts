@@ -44,4 +44,40 @@ export class CreateProductoDto {
 
     @ApiProperty({ description: "Imagen 3 del producto" })
     img3base64: string;
+
+    @ApiProperty({ description: "Indica si el producto es favorito" })
+    esFavorito: boolean;
+    
+    @ApiProperty({ description: "Indica si el producto es oferta" })
+    esOferta: boolean;
+
+    @ApiProperty({ description: "Talla del producto" })
+    talla: string;
+
+    @ApiProperty({ description: "Precio normal del producto" })
+    precioNormal: string;
+
+    @ApiProperty({ description: "Indica si el precio oferta del producto" })
+    precioOferta: string;
+
+    @ApiProperty()
+    condicion: string;
+
+    @ApiProperty()
+    material: string;
+
+    @ApiProperty()
+    medidaCadera: number;
+
+    @ApiProperty()
+    medidaPecho: number;
+
+    @ApiProperty()
+    medidaLargo: number;
+
+    @ApiProperty()
+    ilustradorId: number;
+
+    // @ApiProperty()
+    // thumbnail: string;
 }

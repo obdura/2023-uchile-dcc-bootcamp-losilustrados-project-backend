@@ -24,6 +24,7 @@ async function bootstrap() {
     .setTitle('Los Ilustrados API Doc')
     .setDescription('Documentación General de la API')
     .setVersion('1.0')
+    .addApiKey({ type: "apiKey", in: "header", name: "authorization"}, "general")
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

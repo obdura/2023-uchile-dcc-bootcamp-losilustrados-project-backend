@@ -43,16 +43,52 @@ export class ProductoDto {
     precio: number;
 
     @ApiProperty({ description: "Imagen 1 del producto" })
-    imagen1ruta: string
+    img1: string
 
     @ApiProperty({ description: "Imagen 2 del producto" })
-    imagen2ruta: string
+    img2: string
     
     @ApiProperty({ description: "Imagen 3 del producto" })
-    imagen3ruta: string
+    img3: string
     // @ApiProperty({ description: "Inventario del producto", type: Inventario, isArray: true })
     // inventarios: InventarioDto[];
 
     // @ApiProperty({ description: "Imagenes del producto", type: ImagenProductoDto, isArray: true })
     // imagenes: ImagenProductoDto[];
+
+    @ApiProperty({ description: "Indica si el producto es favorito" })
+    esFavorito: boolean;
+    
+    @ApiProperty({ description: "Indica si el producto es oferta" })
+    esOferta: boolean;
+
+    @ApiProperty({ description: "Talla del producto" })
+    talla: string;
+
+    @ApiProperty({ description: "Precio normal del producto" })
+    precioNormal: string;
+
+    @ApiProperty({ description: "Indica si el precio oferta del producto" })
+    precioOferta: string;
+
+    @ApiProperty()
+    condicion: string;
+
+    @ApiProperty()
+    material: string;
+
+    @ApiProperty()
+    medidaCadera: number;
+
+    @ApiProperty()
+    medidaPecho: number;
+
+    @ApiProperty()
+    medidaLargo: number;
+
+    @ApiProperty()
+    ilustradorId: number;
+
+    @ApiProperty()
+    thumbnail: string;
 }

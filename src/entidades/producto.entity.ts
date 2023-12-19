@@ -59,4 +59,39 @@ export class Producto {
     @OneToMany(() => ImagenProducto, (imagen) => imagen.producto)
     imagenes: ImagenProducto[];
 
+    @Column()
+    esFavorito: boolean;
+
+    @Column()
+    talla: string;
+
+    @Column()
+    precioNormal: string;
+
+    @Column()
+    esOferta: boolean;
+
+    @Column()
+    precioOferta: string;
+
+    @Column()
+    condicion: string;
+
+    @Column()
+    material: string;
+
+    @Column()
+    medidaCadera: number;
+
+    @Column()
+    medidaPecho: number;
+
+    @Column()
+    medidaLargo: number;
+
+    @Column()
+    ilustradorId: number;
+
+    @Column()
+    thumbnail: string;  // ruta thumbnail
 }

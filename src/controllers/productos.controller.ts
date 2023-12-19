@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, DefaultValuePipe, Delete, Get, NotFoundException, Param, ParseIntPipe, Patch, Post, Query, UseGuards, Headers, Request } from '@nestjs/common';
-import { ApiBody, ApiExcludeEndpoint, ApiHeader, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiExcludeEndpoint, ApiHeader, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateProductoDto } from 'src/dtos/create-producto.dto';
 import { ProductoDto } from 'src/dtos/producto.dto';
 import { RegistrarImagenProductoDto } from 'src/dtos/registrar-imagen-producto.dto';
@@ -104,6 +104,7 @@ export class ProductosController {
         // TODO
     }
 
+    @ApiBearerAuth('general')
     @Roles(Role.Admin)
     @UseGuards(AuthenticationGuard, RolesGuard)
     @Post()
