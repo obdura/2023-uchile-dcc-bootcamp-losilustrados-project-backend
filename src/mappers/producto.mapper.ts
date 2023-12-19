@@ -24,6 +24,18 @@ export class ProductoMapper {
         entidad.nombreCategoria = dto.categoria;
         entidad.nombreMarca = dto.marca;
         entidad.nombreProveedor = dto.proveedor;
+
+        entidad.esFavorito = dto.esFavorito;
+        entidad.talla = dto.talla;
+        entidad.precioNormal = dto.precioNormal;
+        entidad.esOferta = dto.esOferta;
+        entidad.precioOferta = dto.precioOferta;
+        entidad.condicion = dto.condicion;
+        entidad.material = dto.material;
+        entidad.medidaCadera = dto.medidaCadera;
+        entidad.medidaPecho = dto.medidaPecho;
+        entidad.medidaLargo = dto.medidaLargo;
+        entidad.ilustradorId = dto.ilustradorId;
         
         return entidad;
     }
@@ -41,9 +53,9 @@ export class ProductoMapper {
 
         if(entidad.imagenes) {
             try {
-                dto.imagen1ruta = entidad.imagenes[0].ruta;
-                dto.imagen2ruta = entidad.imagenes[1].ruta;
-                dto.imagen3ruta = entidad.imagenes[2].ruta;
+                dto.img1 = entidad.imagenes[0].ruta;
+                dto.img2 = entidad.imagenes[1].ruta;
+                dto.img3 = entidad.imagenes[2].ruta;
             } catch(error) {
                 console.log(error);
             }
@@ -89,6 +101,19 @@ export class ProductoMapper {
         //     imagenDto.ruta = imagenEntidad.ruta;
         //     return imagenDto;
         // }));
+
+        dto.esFavorito = entidad.esFavorito;
+        dto.talla = entidad.talla;
+        dto.precioNormal = entidad.precioNormal;
+        dto.esOferta = entidad.esOferta;
+        dto.precioOferta = entidad.precioOferta;
+        dto.condicion = entidad.condicion;
+        dto.material = entidad.material;
+        dto.medidaCadera = entidad.medidaCadera;
+        dto.medidaPecho = entidad.medidaPecho;
+        entidad.medidaLargo = entidad.medidaLargo;
+        dto.ilustradorId = entidad.ilustradorId;
+
         console.log(dto);
         return dto;
     }
