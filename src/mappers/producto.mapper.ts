@@ -111,7 +111,7 @@ export class ProductoMapper {
         dto.material = entidad.material;
         dto.medidaCadera = entidad.medidaCadera;
         dto.medidaPecho = entidad.medidaPecho;
-        entidad.medidaLargo = entidad.medidaLargo;
+        dto.medidaLargo = entidad.medidaLargo;
         dto.ilustradorId = entidad.ilustradorId;
 
         console.log(dto);
