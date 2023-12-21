@@ -114,12 +114,12 @@ export class ProductoMapper {
         dto.medidaLargo = entidad.medidaLargo;
         dto.ilustradorId = entidad.ilustradorId;
 
-        console.log(dto);
+        //console.log(dto);
         return dto;
     }
 
     static async productoEntitiesToProductoDtoList(entidades: Producto[]): Promise<ProductoDto[]> {
-        console.log(entidades);
+        //console.log(entidades);
         return Promise.all(entidades.map((entidad) => this.entityToDto(entidad)));
     }
 }
