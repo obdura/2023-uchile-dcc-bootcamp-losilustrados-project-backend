@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateProductoDto } from "src/dtos/create-producto.dto";
 import { Producto } from "src/entidades/producto.entity";
-import { Repository } from "typeorm";
+import { Between, In, Repository } from "typeorm";
 import { ProductoMapper } from "src/mappers/producto.mapper";
 import { ProductoDto } from "src/dtos/producto.dto";
 import { UpdateProductoDto } from "src/dtos/update-producto.dto";
@@ -24,7 +24,40 @@ export class ProductosService {
         @InjectRepository(ImagenProducto) private imageProductoRepository: Repository<ImagenProducto>
     ) {}
     
-    async findAll(page: number, limit: number): Promise<ProductoDto[]> {
+    async findAll(
+        page: number,
+        limit: number,
+        talla: string,
+        marca: string,
+        ilustradorId: number[],
+        oferta: boolean,
+        precioMax: number,
+        precioMin: number
+        ): Promise<ProductoDto[]> {
+
+        let whereConditional = {}
+
+        if (talla) {
+            whereConditional['talla'] = talla
+        }
+
+        if (marca != "") {
+            whereConditional["nombreMarca"] = marca;
+        }
+
+        if (ilustradorId.length != 0) {
+            whereConditional['ilustradorId'] = In(ilustradorId);
+        }
+
+        whereConditional['esOferta'] = oferta;
+        if (oferta) {
+            whereConditional['precioOferta'] = Between(precioMin, precioMax);
+        } else {
+            whereConditional['precioNormal'] = Between(precioMin, precioMax);
+        } 
+
+        console.log("where conditional:", whereConditional);
+
         const result = await this.productoRepository.find(
             {
                 order: {
@@ -33,6 +66,7 @@ export class ProductosService {
                 relations: {
                     imagenes: true
                 },
+                where: whereConditional,
                 take: limit,
                 skip: (page - 1) * limit
             }

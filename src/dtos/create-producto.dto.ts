@@ -55,10 +55,10 @@ export class CreateProductoDto {
     talla: string;
 
     @ApiProperty({ description: "Precio normal del producto" })
-    precioNormal: string;
+    precioNormal: number;
 
     @ApiProperty({ description: "Indica si el precio oferta del producto" })
-    precioOferta: string;
+    precioOferta: number;
 
     @ApiProperty()
     condicion: string;

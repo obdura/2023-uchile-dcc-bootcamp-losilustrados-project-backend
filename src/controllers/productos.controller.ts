@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, DefaultValuePipe, Delete, Get, NotFoundException, Param, ParseIntPipe, Patch, Post, Query, UseGuards, Headers, Request } from '@nestjs/common';
+import { BadRequestException, Body, Controller, DefaultValuePipe, Delete, Get, NotFoundException, Param, ParseIntPipe, Patch, Post, Query, UseGuards, Headers, Request, ParseBoolPipe, ParseArrayPipe } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiExcludeEndpoint, ApiHeader, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateProductoDto } from 'src/dtos/create-producto.dto';
 import { ProductoDto } from 'src/dtos/producto.dto';
@@ -21,13 +21,34 @@ export class ProductosController {
     @Get()
     @ApiQuery({ name: 'page', required: false, type: Number, description: 'La página del listado de productos.'})
     @ApiQuery({ name: 'limit', required: false, type: Number, description: 'El número de productos a mostrar por página.'})
+    @ApiQuery({ name: "talla", required: false})
+    @ApiQuery({ name: "marca", required: false})
+    @ApiQuery({ name: "ilustradorId", required: false, isArray: true})
+    @ApiQuery({ name: "oferta", required: false})
+    @ApiQuery({ name: "precioMax", required: false})
+    @ApiQuery({ name: "precioMin", required: false})
     @ApiOkResponse({ description: 'Los productos encontrados.', type: ProductoDto, isArray: true })
     async findAll(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-        @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number
+        @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+        @Query("talla") talla: string,
+        @Query("marca") marca: string,
+        @Query("ilustradorId", new DefaultValuePipe([]), ParseArrayPipe) ilustradorId: number[],
+        @Query("oferta", new DefaultValuePipe(false), ParseBoolPipe) oferta: boolean,
+        @Query("precioMin", new DefaultValuePipe(0), ParseIntPipe) precioMin: number,
+        @Query("precioMax", new DefaultValuePipe(10000000000), ParseIntPipe) precioMax: number
     ) {
         try {
-            const result: ProductoDto[] = await this.productoService.findAll(page, limit);
+            const result: ProductoDto[] = await this.productoService.findAll(
+                page,
+                limit,
+                talla,
+                marca,
+                ilustradorId,
+                oferta,
+                precioMax,
+                precioMin
+            );
             return result;
         } catch (error) {
             throw new BadRequestException(error.message);

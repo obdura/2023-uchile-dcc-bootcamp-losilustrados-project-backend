@@ -66,13 +66,13 @@ export class Producto {
     talla: string;
 
     @Column()
-    precioNormal: string;
+    precioNormal: number;
 
     @Column()
     esOferta: boolean;
 
     @Column()
-    precioOferta: string;
+    precioOferta: number;
 
     @Column()
     condicion: string;
