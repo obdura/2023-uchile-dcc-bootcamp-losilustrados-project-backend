@@ -185,21 +185,21 @@ export class ProductosService {
 
         const base64data1 = createProductoDto.img1base64;
         const fileName1 = uuidv4();
-        if ( base64data1 != "") {
+        if (base64data1) {
             base64Contents.push(base64data1);
             fileNames.push(fileName1);
         }
 
         const base64data2 = createProductoDto.img2base64;
         const fileName2 = uuidv4();
-        if ( base64data2 != "") {
+        if (base64data2) {
             base64Contents.push(base64data2);
             fileNames.push(fileName2);
         }
 
         const base64data3 = createProductoDto.img3base64;
         const fileName3 = uuidv4();
-        if ( base64data3 != "") {
+        if (base64data3) {
             base64Contents.push(base64data3);
             fileNames.push(fileName3);
         }
