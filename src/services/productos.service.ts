@@ -244,10 +244,74 @@ export class ProductosService {
         entity.nombre = dto.nombre;
         entity.precio = dto.precio;
         entity.descripcion = dto.descripcion
-        entity.categoria = CategoriaMapper.dtoToEntity(dto.categoria);
-        entity.ilustracion = IlustracionMapper.dtoToEntity(dto.ilustracion);
-        entity.marca = MarcaMapper.dtoToEntity(dto.marca);
-        entity.proveedor = ProveedorMapper.dtoToEntity(dto.proveedor);
+        // entity.categoria = CategoriaMapper.dtoToEntity(dto.categoria);
+        // entity.ilustracion = IlustracionMapper.dtoToEntity(dto.ilustracion);
+        // entity.marca = MarcaMapper.dtoToEntity(dto.marca);
+        // entity.proveedor = ProveedorMapper.dtoToEntity(dto.proveedor);
+        entity.nombreCategoria = dto.nombreCategoria;
+        entity.nombreMarca = dto.nombreMarca;
+        entity.nombreProveedor = dto.nombreProveedor;
+        entity.esFavorito = dto.esFavorito;
+        entity.esOferta = dto.esOferta;
+        entity.talla = dto.talla;
+        entity.precioNormal = dto.precioNormal
+        entity.precioOferta = dto.precioOferta;
+        entity.condicion = dto.condicion;
+        entity.material = dto.material;
+        entity.medidaCadera = dto.medidaCadera;
+        entity.medidaLargo = dto.medidaLargo;
+        entity.medidaPecho = dto.medidaPecho;
+        entity.ilustradorId = dto.ilustradorId;
+
+        const idProducto = found.id;
+
+        const base64Contents = [];
+        const fileNames = [];
+
+        const base64data1 = dto.img1base64;
+        const fileName1 = uuidv4();
+        console.log(base64data1);
+        if (base64data1) {
+            base64Contents.push(base64data1);
+            fileNames.push(fileName1);
+        }
+
+        const base64data2 = dto.img2base64;
+        const fileName2 = uuidv4();
+        if (base64data2) {
+            base64Contents.push(base64data2);
+            fileNames.push(fileName2);
+        }
+
+        const base64data3 = dto.img3base64;
+        const fileName3 = uuidv4();
+        if (base64data3) {
+            base64Contents.push(base64data3);
+            fileNames.push(fileName3);
+        }
+        // const base64Contents = [base64data1, base64data2, base64data3];
+        // const fileNames = [fileName1, fileName2, fileName3];
+
+        for (let i = 0; i < base64Contents.length; i++) {
+            const buffer = Buffer.from(base64Contents[i], 'base64');
+            let ruta = `${idProducto.toString()}/${fileNames[i]}.png`;
+            try {
+                try {
+                    await FS.mkdir(`./assets/files/${idProducto.toString()}`);
+                } catch (error) {
+                    console.log(error.message);
+                }
+                await FS.writeFile('./assets/files/' + ruta, base64Contents[i], { encoding: 'base64' });
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
+            let image = new ImagenProducto();
+            image.nombre = fileNames[i];
+            image.ruta = ruta;
+            image.producto = entity;
+            await this.imageProductoRepository.save(image);
+        }
         
         await this.productoRepository.update(id, entity);
 
