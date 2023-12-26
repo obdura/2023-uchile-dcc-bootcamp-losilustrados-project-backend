@@ -29,7 +29,7 @@ export class ProductosService {
         limit: number,
         talla: string,
         marca: string,
-        ilustradorId: number[],
+        //ilustradorId: number[],
         oferta: boolean,
         precioMax: number,
         precioMin: number
@@ -45,12 +45,12 @@ export class ProductosService {
             whereConditional["nombreMarca"] = marca;
         }
 
-        if (ilustradorId.length != 0) {
-            whereConditional['ilustradorId'] = In(ilustradorId);
-        }
+        // if (ilustradorId.length != 0) {
+        //     whereConditional['ilustradorId'] = In(ilustradorId);
+        // }
 
-        whereConditional['esOferta'] = oferta;
         if (oferta) {
+            whereConditional['esOferta'] = oferta;
             whereConditional['precioOferta'] = Between(precioMin, precioMax);
         } else {
             whereConditional['precioNormal'] = Between(precioMin, precioMax);
@@ -70,9 +70,11 @@ export class ProductosService {
                 take: limit,
                 skip: (page - 1) * limit
             }
-        );
+            );
+        console.log(result.length);
         return await ProductoMapper.productoEntitiesToProductoDtoList(result);
     }
+
     
     async findByCategoriaId(page: number, limit: number, categoriaId: number): Promise<ProductoDto[]> {
         const result = await this.productoRepository.find(

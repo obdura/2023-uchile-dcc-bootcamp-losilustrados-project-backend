@@ -23,7 +23,7 @@ export class ProductosController {
     @ApiQuery({ name: 'limit', required: false, type: Number, description: 'El número de productos a mostrar por página.'})
     @ApiQuery({ name: "talla", required: false})
     @ApiQuery({ name: "marca", required: false})
-    @ApiQuery({ name: "ilustradorId", required: false, isArray: true})
+    //@ApiQuery({ name: "ilustradorId", required: false, isArray: true, type: Number})
     @ApiQuery({ name: "oferta", required: false})
     @ApiQuery({ name: "precioMax", required: false})
     @ApiQuery({ name: "precioMin", required: false})
@@ -33,7 +33,7 @@ export class ProductosController {
         @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
         @Query("talla") talla: string,
         @Query("marca") marca: string,
-        @Query("ilustradorId", new DefaultValuePipe([]), ParseArrayPipe) ilustradorId: number[],
+        //@Query("ilustradorId", new DefaultValuePipe([]), ParseArrayPipe) ilustradorId: number[],
         @Query("oferta", new DefaultValuePipe(false), ParseBoolPipe) oferta: boolean,
         @Query("precioMin", new DefaultValuePipe(0), ParseIntPipe) precioMin: number,
         @Query("precioMax", new DefaultValuePipe(10000000000), ParseIntPipe) precioMax: number
@@ -44,7 +44,7 @@ export class ProductosController {
                 limit,
                 talla,
                 marca,
-                ilustradorId,
+                //ilustradorId,
                 oferta,
                 precioMax,
                 precioMin

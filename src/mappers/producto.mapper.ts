@@ -57,7 +57,7 @@ export class ProductoMapper {
                 dto.img2 = entidad.imagenes[1].ruta;
                 dto.img3 = entidad.imagenes[2].ruta;
             } catch(error) {
-                console.log(error);
+                //console.log(error);
             }
         }
 
