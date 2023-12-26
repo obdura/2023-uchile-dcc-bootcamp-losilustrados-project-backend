@@ -1,8 +1,9 @@
 *
 !.gitignore
-!categorias
-!obras_compressed
-!productos
-!categorias/*
-!obras_compressed/*
-!productos/*
+!static/
+!static/categorias
+!static/obras_compressed
+!static/productos
+!static/categorias/*
+!static/obras_compressed/*
+!static/productos/*
