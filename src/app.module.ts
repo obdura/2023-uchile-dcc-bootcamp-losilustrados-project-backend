@@ -35,6 +35,9 @@ import { LoginController } from './controllers/login.controller';
 import { LoginService } from './services/login.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { Carrito, ProductosPorCarrito } from './entidades/carrito.entity';
+import { CarritoController } from './controllers/carrito.controller';
+import { CarritoService } from './services/carrito.service';
 
 @Module({
   imports: [
@@ -63,7 +66,9 @@ import { join } from 'path';
         Artista,
         Inventario,
         RegistroCarrito,
-        ImagenProducto
+        ImagenProducto,
+        Carrito,
+        ProductosPorCarrito
       ]
     }),
     TypeOrmModule.forFeature([
@@ -73,7 +78,9 @@ import { join } from 'path';
       Inventario,
       Marca,
       RegistroCarrito,
-      ImagenProducto
+      ImagenProducto,
+      Carrito,
+      ProductosPorCarrito
     ]),
     JwtModule.register({
       global: true,
@@ -91,7 +98,8 @@ import { join } from 'path';
     ProveedoresController,
     MarcasController,
     RegistroCarritoController,
-    LoginController
+    LoginController,
+    CarritoController
   ],
   providers: [
     AppService,
@@ -100,7 +108,8 @@ import { join } from 'path';
     ArtistasService,
     MarcasService,
     RegistroCarritoService,
-    LoginService
+    LoginService,
+    CarritoService
   ],
 })
 export class AppModule {}
