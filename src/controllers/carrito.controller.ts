@@ -1,7 +1,8 @@
-import { BadRequestException, Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Patch, Post, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiHeader, ApiTags } from "@nestjs/swagger";
 import { Roles } from "src/decorator/roles.decorator";
 import { CreateCarritoDto } from "src/dtos/create-carrito.dto";
+import { UpdateCarritoDto } from "src/dtos/update-carrito.dto";
 import { Role } from "src/enum/role.enum";
 import { AuthenticationGuard } from "src/guards/authentication.guard";
 import { RolesGuard } from "src/guards/roles.guard";
@@ -23,6 +24,16 @@ export class CarritoController {
     async postCarrito(@Body() createCarritoDto: CreateCarritoDto) {
         try {
             await this.carritoService.createCarrito(createCarritoDto);
+            return { 'message': 'OK' };
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    @Patch()
+    async updateCarrito(@Body() updateCarritoDto: UpdateCarritoDto) {
+        try {
+            await this.carritoService.updateCarrito(updateCarritoDto);
             return { 'message': 'OK' };
         } catch (error) {
             throw new BadRequestException(error.message);
