@@ -86,3 +86,24 @@ create table ProductosPorCarrito (
 
 select * from ProductosPorCarrito;
 select * from Carrito;
+
+ALTER TABLE `DetallePedidos`
+DROP FOREIGN KEY `DetallePedidos_ibfk_2`;
+ALTER TABLE `DetallePedidos`
+ADD CONSTRAINT `DetallePedidos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `Productos` (`id`) ON DELETE SET NULL;
+ALTER TABLE `DetallePedidos`
+DROP FOREIGN KEY `DetallePedidos_ibfk_1`;
+ALTER TABLE `DetallePedidos`
+ADD CONSTRAINT `DetallePedidos_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `Productos` (`id`) ON DELETE SET NULL;
+ALTER TABLE `Favoritos`
+DROP FOREIGN KEY `Favoritos_ibfk_1`;
+ALTER TABLE `Favoritos`
+ADD CONSTRAINT `Favoritos_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `Productos` (`id`) ON DELETE SET NULL;
+ALTER TABLE `Inventario`
+DROP FOREIGN KEY `Inventario_ibfk_1`;
+ALTER TABLE `Inventario`
+ADD CONSTRAINT `Inventario_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `Productos` (`id`) ON DELETE SET NULL;
+ALTER TABLE `Ofertas`
+DROP FOREIGN KEY `Ofertas_ibfk_1`;
+ALTER TABLE `Ofertas`
+ADD CONSTRAINT `Ofertas_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `Productos` (`id`) ON DELETE SET NULL;
