@@ -37,11 +37,11 @@ export class ProductosService {
 
         let whereConditional = {}
 
-        if (talla) {
+        if (talla != "" && talla != null) {
             whereConditional['talla'] = talla
         }
 
-        if (marca != "") {
+        if (marca != "" && marca != null) {
             whereConditional["nombreMarca"] = marca;
         }
 
