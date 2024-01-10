@@ -107,3 +107,8 @@ ALTER TABLE `Ofertas`
 DROP FOREIGN KEY `Ofertas_ibfk_1`;
 ALTER TABLE `Ofertas`
 ADD CONSTRAINT `Ofertas_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `Productos` (`id`) ON DELETE SET NULL;
+
+ALTER TABLE `ImagenesProductos`
+DROP FOREIGN KEY `ImagenesProductos_ibfk_1`;
+ALTER TABLE `ImagenesProductos`
+ADD CONSTRAINT `ImagenesProductos_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `Productos` (`id`) ON DELETE SET NULL;
