@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Categoria } from "./categoria.entity";
 import { Marca } from "./marca.entity";
 import { Ilustracion } from "./ilustracion.entity";
@@ -10,7 +10,7 @@ import { ImagenProducto } from "./productos-imagenes.entity";
 @Entity({ name: 'Productos' })
 export class Producto {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
@@ -33,6 +33,15 @@ export class Producto {
     proveedor: Proveedor;
 
     @Column()
+    nombreCategoria: string;
+
+    @Column()
+    nombreMarca: string;
+
+    @Column()
+    nombreProveedor: string;
+
+    @Column()
     descripcion: string;
 
     @Column()
@@ -50,4 +59,39 @@ export class Producto {
     @OneToMany(() => ImagenProducto, (imagen) => imagen.producto)
     imagenes: ImagenProducto[];
 
+    @Column()
+    esFavorito: boolean;
+
+    @Column()
+    talla: string;
+
+    @Column()
+    precioNormal: number;
+
+    @Column()
+    esOferta: boolean;
+
+    @Column()
+    precioOferta: number;
+
+    @Column()
+    condicion: string;
+
+    @Column()
+    material: string;
+
+    @Column()
+    medidaCadera: number;
+
+    @Column()
+    medidaPecho: number;
+
+    @Column()
+    medidaLargo: number;
+
+    @Column()
+    ilustradorId: number;
+
+    @Column()
+    thumbnail: string;  // ruta thumbnail
 }

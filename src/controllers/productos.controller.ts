@@ -1,10 +1,14 @@
-import { BadRequestException, Body, Controller, DefaultValuePipe, Delete, Get, NotFoundException, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiExcludeEndpoint, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { BadRequestException, Body, Controller, DefaultValuePipe, Delete, Get, NotFoundException, Param, ParseIntPipe, Patch, Post, Query, UseGuards, Headers, Request, ParseBoolPipe, ParseArrayPipe } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiExcludeEndpoint, ApiHeader, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateProductoDto } from 'src/dtos/create-producto.dto';
 import { ProductoDto } from 'src/dtos/producto.dto';
 import { RegistrarImagenProductoDto } from 'src/dtos/registrar-imagen-producto.dto';
 import { UpdateProductoDto } from 'src/dtos/update-producto.dto';
 import { ProductosService } from 'src/services/productos.service';
+import { AuthenticationGuard } from 'src/guards/authentication.guard';
+import { Roles } from 'src/decorator/roles.decorator';
+import { Role } from 'src/enum/role.enum';
+import { RolesGuard } from 'src/guards/roles.guard';
 
 @ApiTags("Productos")
 @Controller("productos")
@@ -17,13 +21,34 @@ export class ProductosController {
     @Get()
     @ApiQuery({ name: 'page', required: false, type: Number, description: 'La página del listado de productos.'})
     @ApiQuery({ name: 'limit', required: false, type: Number, description: 'El número de productos a mostrar por página.'})
+    @ApiQuery({ name: "talla", required: false})
+    @ApiQuery({ name: "marca", required: false})
+    //@ApiQuery({ name: "ilustradorId", required: false, isArray: true, type: Number})
+    @ApiQuery({ name: "oferta", required: false})
+    @ApiQuery({ name: "precioMax", required: false})
+    @ApiQuery({ name: "precioMin", required: false})
     @ApiOkResponse({ description: 'Los productos encontrados.', type: ProductoDto, isArray: true })
     async findAll(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-        @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number
+        @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+        @Query("talla") talla: string,
+        @Query("marca") marca: string,
+        //@Query("ilustradorId", new DefaultValuePipe([]), ParseArrayPipe) ilustradorId: number[],
+        @Query("oferta", new DefaultValuePipe(false), ParseBoolPipe) oferta: boolean,
+        @Query("precioMin", new DefaultValuePipe(0), ParseIntPipe) precioMin: number,
+        @Query("precioMax", new DefaultValuePipe(10000000000), ParseIntPipe) precioMax: number
     ) {
         try {
-            const result: ProductoDto[] = await this.productoService.findAll(page, limit);
+            const result: ProductoDto[] = await this.productoService.findAll(
+                page,
+                limit,
+                talla,
+                marca,
+                //ilustradorId,
+                oferta,
+                precioMax,
+                precioMin
+            );
             return result;
         } catch (error) {
             throw new BadRequestException(error.message);
@@ -100,8 +125,13 @@ export class ProductosController {
         // TODO
     }
 
+    @ApiBearerAuth('general')
+    @Roles(Role.Admin)
+    @UseGuards(AuthenticationGuard, RolesGuard)
     @Post()
-    async addProducto(@Body() createProductoDto: CreateProductoDto) {
+    @ApiHeader({ name: "Authentication", description: "Token de autenticación", required: true })
+    async addProducto(@Headers("Authentication") token: string, @Body() createProductoDto: CreateProductoDto) {
+        // console.log(token);
         try {
             const resultado: ProductoDto = await this.productoService.addProducto(createProductoDto);
             return resultado;
@@ -124,11 +154,15 @@ export class ProductosController {
         }
     }
 
+    @ApiBearerAuth('general')
+    @Roles(Role.Admin)
+    @UseGuards(AuthenticationGuard, RolesGuard)
     @Patch("/update/:id")
     @ApiBody({ type: UpdateProductoDto, description: "Datos del producto a actualizar"})
     @ApiParam({ name: "id", required: true, description: "Id del producto a actualizar" })
     @ApiOkResponse({ description: "Producto actualizado", type: ProductoDto})
     @ApiNotFoundResponse({ description: "No se encontró el producto" })
+    @ApiHeader({ name: "Authentication", description: "Token de autenticación", required: true })
     async updateProducto(@Param("id") id: number, @Body() updateProductoDto: UpdateProductoDto) {
         try{
             const resultado = await this.productoService.updateProducto(id, updateProductoDto);

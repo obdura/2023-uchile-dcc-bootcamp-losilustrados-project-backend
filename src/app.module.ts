@@ -30,6 +30,14 @@ import { RegistroCarritoController } from './controllers/registro-carrito.contro
 import { RegistroCarritoService } from './services/registro-carrito.service';
 import { RegistroCarrito } from './entidades/registro-carrito.entity';
 import { ImagenProducto } from './entidades/productos-imagenes.entity';
+import { JwtModule } from '@nestjs/jwt';
+import { LoginController } from './controllers/login.controller';
+import { LoginService } from './services/login.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { Carrito, ProductosPorCarrito } from './entidades/carrito.entity';
+import { CarritoController } from './controllers/carrito.controller';
+import { CarritoService } from './services/carrito.service';
 
 @Module({
   imports: [
@@ -58,7 +66,9 @@ import { ImagenProducto } from './entidades/productos-imagenes.entity';
         Artista,
         Inventario,
         RegistroCarrito,
-        ImagenProducto
+        ImagenProducto,
+        Carrito,
+        ProductosPorCarrito
       ]
     }),
     TypeOrmModule.forFeature([
@@ -68,8 +78,18 @@ import { ImagenProducto } from './entidades/productos-imagenes.entity';
       Inventario,
       Marca,
       RegistroCarrito,
-      ImagenProducto
-    ])
+      ImagenProducto,
+      Carrito,
+      ProductosPorCarrito
+    ]),
+    JwtModule.register({
+      global: true,
+      secret: "CLAVE123",
+      signOptions: { expiresIn: '43200s' }
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "..", "assets/files"),
+    })
   ],
   controllers: [
     ProductosController,
@@ -77,7 +97,9 @@ import { ImagenProducto } from './entidades/productos-imagenes.entity';
     ArtistasController,
     ProveedoresController,
     MarcasController,
-    RegistroCarritoController
+    RegistroCarritoController,
+    LoginController,
+    CarritoController
   ],
   providers: [
     AppService,
@@ -85,7 +107,9 @@ import { ImagenProducto } from './entidades/productos-imagenes.entity';
     ClientesService,
     ArtistasService,
     MarcasService,
-    RegistroCarritoService
+    RegistroCarritoService,
+    LoginService,
+    CarritoService
   ],
 })
 export class AppModule {}

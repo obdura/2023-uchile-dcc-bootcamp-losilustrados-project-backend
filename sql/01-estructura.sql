@@ -10,7 +10,10 @@ CREATE TABLE IF NOT EXISTS `Productos` (
   `id_ilustracion` integer,
   `id_proveedor` integer,
   `descripcion` varchar(1000),
-  `nombre` varchar(100)
+  `nombre` varchar(100),
+  nombreCategoria varchar(255),
+  nombreMarca varchar(255),
+  nombreProveedor varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `Categorias` (
@@ -53,7 +56,18 @@ CREATE TABLE IF NOT EXISTS `Marcas` (
 CREATE TABLE IF NOT EXISTS `Clientes` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `email` varchar(255),
-  `password` varchar(255)
+  `password` varchar(255),
+  nombres varchar(1024),
+  apellidos varchar(1024),
+  telefono varchar(100),
+  direccionDespacho varchar(1024),
+  numeroDepartamentoDespacho integer,
+  comunaDespacho varchar(1024),
+  regionDespacho varchar(1024),
+  direccionFacturacion varchar(1024),
+  numeroDepartamentoFacturacion integer,
+  comunaFacturacion varchar(1024),
+  regionFacturacion varchar(1024),  
 );
 
 CREATE TABLE IF NOT EXISTS `Pedidos` (

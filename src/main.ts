@@ -7,14 +7,24 @@ import { ContactoModule } from './contacto/contacto.module';
 import { LoginModule } from './login/login.module';
 import { PasarelaModule } from './pasarela/pasarela.module';
 import { IllustratorModule } from './illustrator/illustrator.module';
+import * as bodyParser from 'body-parser';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: true
+  });
+
+  app.use(bodyParser.json({limit: '50mb'}));
+  app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
   const config = new DocumentBuilder()
     .setTitle('Los Ilustrados API Doc')
     .setDescription('Documentación General de la API')
     .setVersion('1.0')
+    .addApiKey({ type: "apiKey", in: "header", name: "authorization"}, "general")
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

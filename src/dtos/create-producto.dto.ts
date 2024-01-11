@@ -21,15 +21,63 @@ export class CreateProductoDto {
     @IsInt()
     precio: number;
 
-    @ApiProperty({ example: "1", description: "Id de la categoría del producto"})
-    categoria: Categoria;
+    @ApiProperty({ example: "Poleras", description: "Id de la categoría del producto"})
+    // categoria: Categoria;
+    categoria: string;
 
-    @ApiProperty({ example: "1", description: "Id de la marca del producto"})
-    marca: Marca;
+    @ApiProperty({ example: "Adidas", description: "Id de la marca del producto"})
+    // marca: Marca;
+    marca: string;
 
-    @ApiProperty({ example: "1", description: "Id de la ilustración del producto"})
-    ilustracion: Ilustracion;
+    // @ApiProperty({ example: "1", description: "Id de la ilustración del producto"})
+    // ilustracion: Ilustracion;
 
-    @ApiProperty({ example: "1", description: "Id del proveedor del producto"})
-    proveedor: Proveedor;
+    @ApiProperty({ example: "Adidas S.A.", description: "Id del proveedor del producto"})
+    // proveedor: Proveedor;
+    proveedor: string;
+
+    @ApiProperty({ description: "Imagen 1 del producto" })
+    img1base64: string;
+
+    @ApiProperty({ description: "Imagen 2 del producto" })
+    img2base64: string;
+
+    @ApiProperty({ description: "Imagen 3 del producto" })
+    img3base64: string;
+
+    @ApiProperty({ description: "Indica si el producto es favorito" })
+    esFavorito: boolean;
+    
+    @ApiProperty({ description: "Indica si el producto es oferta" })
+    esOferta: boolean;
+
+    @ApiProperty({ description: "Talla del producto" })
+    talla: string;
+
+    @ApiProperty({ description: "Precio normal del producto" })
+    precioNormal: number;
+
+    @ApiProperty({ description: "Indica si el precio oferta del producto" })
+    precioOferta: number;
+
+    @ApiProperty()
+    condicion: string;
+
+    @ApiProperty()
+    material: string;
+
+    @ApiProperty()
+    medidaCadera: number;
+
+    @ApiProperty()
+    medidaPecho: number;
+
+    @ApiProperty()
+    medidaLargo: number;
+
+    @ApiProperty()
+    ilustradorId: number;
+
+    // @ApiProperty()
+    // thumbnail: string;
 }
